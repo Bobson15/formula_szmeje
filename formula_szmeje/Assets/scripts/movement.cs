@@ -4,29 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class movement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
-    public int gear = 1;
-    public float horsepower = 1000f;
-    public float topSpeed = 320f;
-    public float accelerationTime = 2.5f;
-    public float breakTime = 2f;
-    public float turnSpeed = 2f;
-    public float maxTurnAngle = 30f;
-    public float minTurnAngle = 22f;
-    public float reverseSpeed = 50f;
-    public float changingGearTime = 0f;
-    public bool isBreaking = false;
-    public bool isBreakingR = false;
-
+    private const float topSpeed = 330f;
+    private const float accelerationTime = 1f;
+    private const float breakTime = 1.8f;
+    private const float turnSpeed = 2f;
+    private const float maxTurnAngle = 30f;
+    private const float minTurnAngle = 22f;
+    private const float reverseSpeed = 50f;
     public Transform tireFrontL;
     public Transform tireFrontR;
     public Transform contr;
-    public float wheelTurnAngle = 10f;
-
     private Rigidbody rb;
+    private int gear = 1;
     private float currentSpeed = 0f;
+    private float changingGearTime = 0f;
     private float horizontalInput;
+    private bool isBreaking = false;
+    private bool isBreakingR = false;
 
     void Start()
     {
@@ -95,10 +91,17 @@ public class movement : MonoBehaviour
     void Accelerate()
     {
         float targetSpeed;
-        targetSpeed = (100f + 33f * gear) * (1f - 0.15f * horizontalInput) / (1.8f + (0.2f + 0.01f * gear) * gear);
+        targetSpeed = (110f + 33f * gear) * (1f - 0.15f * horizontalInput) / 3.6f;
         if (rb.velocity.magnitude * 3.6f < topSpeed)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / accelerationTime);
+            if (gear > 1)
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / ((gear-1) * accelerationTime * 0.5f));
+            }
+            else
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / accelerationTime);
+            }
         }
         Vector3 forwardVelocity = -transform.forward * currentSpeed;
         rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
@@ -107,7 +110,7 @@ public class movement : MonoBehaviour
     {
         if (currentSpeed > 0)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / breakTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / (breakTime));
             if (currentSpeed < 0)
             {
                 currentSpeed = 0;
@@ -115,7 +118,7 @@ public class movement : MonoBehaviour
         }
         else
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / breakTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (breakTime * ((rb.velocity.magnitude * 3.6f) / topSpeed)));
             if (currentSpeed > 0)
             {
                 currentSpeed = 0;
@@ -148,7 +151,7 @@ public class movement : MonoBehaviour
     {
         if (currentSpeed > 0)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / accelerationTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / (accelerationTime * 6));
             if (currentSpeed < 0)
             {
                 currentSpeed = 0;
@@ -156,7 +159,7 @@ public class movement : MonoBehaviour
         }
         else
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / accelerationTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (accelerationTime * 6));
             if (currentSpeed > 0)
             {
                 currentSpeed = 0;
