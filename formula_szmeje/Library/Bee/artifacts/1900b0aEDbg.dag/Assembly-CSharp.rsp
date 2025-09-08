@@ -348,7 +348,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/scripts/CarHUD.cs"
 "Assets/scripts/LapTimer.cs"
-"Assets/scripts/movement.cs"
+"Assets/scripts/Movement.cs"
 "Assets/scripts/SectorTrigger.cs"
 -langversion:9.0
 
