@@ -34807,7 +34807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.21
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34840,10 +34840,6 @@ PrefabInstance:
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4950887451430257172, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_Mass
-      value: 620000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2659275591687440428, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
@@ -55918,16 +55914,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42321ae8029e62148afc59470a03786e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horsepower: 1000
-  topSpeed: 320
-  accelerationTime: 2.5
-  turnSpeed: 2
-  maxTurnAngle: 30
-  reverseSpeed: 100
   tireFrontL: {fileID: 243629920}
   tireFrontR: {fileID: 701546293}
   contr: {fileID: 1855159093}
-  wheelTurnAngle: 30
 --- !u!65 &1804217002
 BoxCollider:
   m_ObjectHideFlags: 0

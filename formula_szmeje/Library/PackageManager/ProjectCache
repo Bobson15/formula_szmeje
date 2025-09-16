@@ -342,6 +342,7 @@ m_ResolvedPackages:
     - 3.0.34
     - 3.0.35
     - 3.0.36
+    - 3.0.37
     compatible:
     - 3.0.18
     - 3.0.20
@@ -356,7 +357,8 @@ m_ResolvedPackages:
     - 3.0.34
     - 3.0.35
     - 3.0.36
-    verified: 3.0.36
+    - 3.0.37
+    verified: 3.0.37
   dependencies:
   - name: com.unity.ext.nunit
     version: 1.0.6
@@ -3080,9 +3082,11 @@ m_ResolvedPackages:
     - 0.1.0-preview.1
     - 0.1.0-preview.2
     - 1.0.0
+    - 1.0.1
     compatible:
     - 1.0.0
-    verified: 1.0.0
+    - 1.0.1
+    verified: 1.0.1
   dependencies: []
   resolvedDependencies: []
   keywords:

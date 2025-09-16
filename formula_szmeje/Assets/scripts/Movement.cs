@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private const float maxTurnAngle = 30f;
     private const float minTurnAngle = 22f;
     private const float reverseSpeed = 50f;
+    private const float downforceCoefficient = 10f;
     public Transform tireFrontL;
     public Transform tireFrontR;
     public Transform contr;
@@ -86,6 +87,10 @@ public class Movement : MonoBehaviour
         }
         Turn(horizontalInput);
         AnimateWheels();
+    }
+    private void FixedUpdate()
+    {
+        rb.AddForce(new Vector3(0, Mathf.Pow(Mathf.Abs(rb.velocity.magnitude) * 3.6f, 2) * -downforceCoefficient * (rb.mass/10000), 0), ForceMode.Force);
     }
 
     void Accelerate()
@@ -175,6 +180,10 @@ public class Movement : MonoBehaviour
         {
             float turnAngle = horizontalInput * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
             Quaternion turnRotation = Quaternion.Euler(0, turnAngle * Time.deltaTime * turnSpeed, 0);
+            if (Input.GetKey(KeyCode.S) && !isBreaking)
+            {
+                turnRotation = Quaternion.Euler(0, -turnAngle * Time.deltaTime * turnSpeed, 0);
+            }
             rb.MoveRotation(rb.rotation * turnRotation);
 
             Vector3 forwardVelocity = -transform.forward * currentSpeed;
