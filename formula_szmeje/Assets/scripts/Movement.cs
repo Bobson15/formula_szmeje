@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -18,25 +19,25 @@ public class Movement : MonoBehaviour
     public Transform tireFrontR;
     public Transform contr;
     private Rigidbody rb;
+    private PlayerInput playerInput;
     private int gear = 1;
     private float currentSpeed = 0f;
     private float changingGearTime = 0f;
-    private float horizontalInput;
     private bool isBreaking = false;
     private bool isBreakingR = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerInput = GetComponent<PlayerInput>();
         rb.centerOfMass = new Vector3(0, -1, 0);
     }
 
     void Update()
     {
 
-        horizontalInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.W))
+        if (playerInput.actions["Throttle"].IsPressed())
         {
             isBreaking = false;
             if (currentSpeed >= 0f)
@@ -52,7 +53,7 @@ public class Movement : MonoBehaviour
                 isBreakingR = true;
             }
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (playerInput.actions["Brake"].IsPressed())
         {
             isBreakingR = false;
             if (currentSpeed > 0f)
@@ -85,8 +86,7 @@ public class Movement : MonoBehaviour
         {
             changingGearTime -= Time.deltaTime;
         }
-        Turn(horizontalInput);
-        AnimateWheels();
+        Turn();
     }
     private void FixedUpdate()
     {
@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour
     void Accelerate()
     {
         float targetSpeed;
-        targetSpeed = (110f + 33f * gear) * (1f - 0.15f * horizontalInput) / 3.6f;
+        targetSpeed = (110f + 33f * gear) * (1f - 0.15f * 0) / 3.6f;
         if (rb.velocity.magnitude * 3.6f < topSpeed)
         {
             if (gear > 1)
@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
     void Reverse()
     {
         float targetSpeed;
-        if (horizontalInput == 0)
+        if (0 == 0)
         {
             targetSpeed = -reverseSpeed / 3.6f;
         }
@@ -174,11 +174,29 @@ public class Movement : MonoBehaviour
         rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
     }
 
-    void Turn(float horizontalInput)
+    void Turn()
     {
+        float turnAngle = 0;
+        if (playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed())
+        {
+            turnAngle = -1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+            AnimateWheels(-1);
+        }
+        else if (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed())
+        {
+            turnAngle = 1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+            AnimateWheels(1);
+        }
+        else if (playerInput.actions["Turn"].IsPressed()) {
+            turnAngle = playerInput.actions["Turn"].ReadValue<Vector2>().x * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+            AnimateWheels(playerInput.actions["Turn"].ReadValue<Vector2>().x);
+        }
+        else
+        {
+            AnimateWheels(0);
+        }
         if (Mathf.Abs(currentSpeed) >= 2)
         {
-            float turnAngle = horizontalInput * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
             Quaternion turnRotation = Quaternion.Euler(0, turnAngle * Time.deltaTime * turnSpeed, 0);
             if (Input.GetKey(KeyCode.S) && !isBreaking)
             {
@@ -188,12 +206,12 @@ public class Movement : MonoBehaviour
 
             Vector3 forwardVelocity = -transform.forward * currentSpeed;
             rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
-        }
+            }
     }
 
-    void AnimateWheels()
+    void AnimateWheels(float angle)
     {
-        float turnAngle = horizontalInput * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+        float turnAngle = angle * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
 
         if (tireFrontL != null && tireFrontR != null)
         {
@@ -204,7 +222,7 @@ public class Movement : MonoBehaviour
 
         if (contr != null)
         {
-            float steeringAngle = horizontalInput * 90f;
+            float steeringAngle = angle * 90f;
             Quaternion targetRotation = Quaternion.Euler(0, 0, steeringAngle);
             contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * 5f);
         }
