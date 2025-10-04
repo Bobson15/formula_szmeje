@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    private const float topSpeed = 330f;
+    private const float topSpeed = 350f;
     private const float accelerationTime = 1f;
-    private const float breakTime = 1.8f;
+    private const float breakTime = 1.9f;
     private const float turnSpeed = 2f;
     private const float maxTurnAngle = 30f;
-    private const float minTurnAngle = 22f;
-    private const float reverseSpeed = 50f;
+    private const float minTurnAngle = 18f;
+    private const float reverseSpeed = 100f;
     private const float downforceCoefficient = 10f;
     public Transform tireFrontL;
     public Transform tireFrontR;
@@ -72,12 +72,12 @@ public class Movement : MonoBehaviour
             isBreakingR = false;
             Decelerate();
         }
-        if (rb.velocity.magnitude * 3.6f > 100 + 33 * (gear - 1) && gear < 8)
+        if (rb.velocity.magnitude * 3.6f > 100 + 35 * (gear - 1) && gear < 8)
         {
             gear++;
             changingGearTime = 0.05f;
         }
-        else if (rb.velocity.magnitude * 3.6f < 90 + 33 * (gear - 2) && gear > 1)
+        else if (rb.velocity.magnitude * 3.6f < 90 + 35 * (gear - 2) && gear > 1)
         {
             gear--;
             changingGearTime = 0.05f;
@@ -96,12 +96,12 @@ public class Movement : MonoBehaviour
     void Accelerate()
     {
         float targetSpeed;
-        targetSpeed = (110f + 33f * gear) * (1f - 0.15f * 0) / 3.6f;
+        targetSpeed = (110f + 33f * gear) / 3.6f;
         if (rb.velocity.magnitude * 3.6f < topSpeed)
         {
             if (gear > 1)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / ((gear-1) * accelerationTime * 0.5f));
+                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / ((gear-1) * accelerationTime * 0.4f));
             }
             else
             {
@@ -115,7 +115,18 @@ public class Movement : MonoBehaviour
     {
         if (currentSpeed > 0)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / (breakTime));
+            if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / (2 * breakTime));
+            }
+            else if (playerInput.actions["Turn"].IsPressed())
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
+            }
+            else
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / breakTime);
+            }
             if (currentSpeed < 0)
             {
                 currentSpeed = 0;
@@ -123,7 +134,18 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (breakTime * ((rb.velocity.magnitude * 3.6f) / topSpeed)));
+            if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / (2 * breakTime));
+            }
+            else if (playerInput.actions["Turn"].IsPressed())
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
+            }
+            else
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / breakTime);
+            }
             if (currentSpeed > 0)
             {
                 currentSpeed = 0;
@@ -136,14 +158,7 @@ public class Movement : MonoBehaviour
     void Reverse()
     {
         float targetSpeed;
-        if (0 == 0)
-        {
-            targetSpeed = -reverseSpeed / 3.6f;
-        }
-        else
-        {
-            targetSpeed = -reverseSpeed * 0.8f / 3.6f;
-        }
+        targetSpeed = -reverseSpeed / 3.6f;
         if (rb.velocity.magnitude < (-targetSpeed) / 2)
         {
             currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / accelerationTime);
@@ -198,7 +213,7 @@ public class Movement : MonoBehaviour
         if (Mathf.Abs(currentSpeed) >= 2)
         {
             Quaternion turnRotation = Quaternion.Euler(0, turnAngle * Time.deltaTime * turnSpeed, 0);
-            if (Input.GetKey(KeyCode.S) && !isBreaking)
+            if (playerInput.actions["Brake"].IsPressed() && !isBreaking)
             {
                 turnRotation = Quaternion.Euler(0, -turnAngle * Time.deltaTime * turnSpeed, 0);
             }
@@ -215,23 +230,17 @@ public class Movement : MonoBehaviour
 
         if (tireFrontL != null && tireFrontR != null)
         {
-            Quaternion wheelTurn = Quaternion.Euler(0, turnAngle, 0);
-            tireFrontL.localRotation = wheelTurn;
-            tireFrontR.localRotation = wheelTurn;
+            Quaternion wheelTurn = Quaternion.Euler(tireFrontL.localRotation.x - rb.velocity.magnitude * 7, turnAngle, 0);
+            tireFrontL.localRotation = Quaternion.Lerp(tireFrontL.localRotation, wheelTurn, Time.deltaTime * (turnSpeed*4));
+            tireFrontR.localRotation = Quaternion.Lerp(tireFrontR.localRotation, wheelTurn, Time.deltaTime * (turnSpeed*4));
         }
 
         if (contr != null)
         {
             float steeringAngle = angle * 90f;
             Quaternion targetRotation = Quaternion.Euler(0, 0, steeringAngle);
-            contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * 5f);
+            contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * (turnSpeed*4));
         }
 
-        float wheelSpinSpeed = Mathf.Abs(currentSpeed) * 5f;
-
-        if (tireFrontL != null)
-            tireFrontL.Rotate(Vector3.right, wheelSpinSpeed * Time.deltaTime);
-        if (tireFrontR != null)
-            tireFrontR.Rotate(Vector3.right, wheelSpinSpeed * Time.deltaTime);
     }
 }
