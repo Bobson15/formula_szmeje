@@ -34575,23 +34575,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0259305
+      value: 0.025932735
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9996638
+      value: 0.9996637
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 177.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55917,19 +55925,6 @@ MonoBehaviour:
   tireFrontL: {fileID: 243629920}
   tireFrontR: {fileID: 701546293}
   contr: {fileID: 1855159093}
---- !u!65 &1804217002
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804216995}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 3.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1804217003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55974,6 +55969,36 @@ MonoBehaviour:
   cameraTransform: {fileID: 963194228}
   shakeIntensity: 0.05
   shakeSpeed: 20
+--- !u!114 &1804217007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804216995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2d70b86193119a04ba68c3d762c2c554, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Driving
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 963194227}
 --- !u!134 &1804400346
 PhysicMaterial:
   m_ObjectHideFlags: 0
