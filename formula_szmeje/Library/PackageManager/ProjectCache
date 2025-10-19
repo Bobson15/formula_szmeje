@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638938133867160426
-    m_Hash: 4124370775
+      ticks: 638964881818995493
+    m_Hash: 2249797896
   m_LockFileStatus:
     m_FilePath: C:/formula_szmeje/formula_szmeje/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638938133867222101
-    m_Hash: 3357322004
+      ticks: 638964881819105533
+    m_Hash: 1719711382
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -618,6 +618,7 @@ m_ResolvedPackages:
     - 1.14.0
     - 1.14.1
     - 1.14.2
+    - 1.15.0
     compatible:
     - 1.5.1
     - 1.6.1
@@ -639,6 +640,7 @@ m_ResolvedPackages:
     - 1.14.0
     - 1.14.1
     - 1.14.2
+    - 1.15.0
     verified: 1.5.1
   dependencies:
   - name: com.unity.modules.uielements
@@ -3299,10 +3301,12 @@ m_ResolvedPackages:
     - 1.1.1
     - 1.2.2
     - 1.2.3
+    - 1.2.4
     compatible:
     - 1.2.2
     - 1.2.3
-    verified: 1.2.3
+    - 1.2.4
+    verified: 1.2.4
   dependencies: []
   resolvedDependencies: []
   keywords: []
