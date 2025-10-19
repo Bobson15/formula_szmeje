@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
     private const float accelerationTime = 1f;
     private const float breakTime = 1.9f;
     private const float turnSpeed = 2f;
-    private const float maxTurnAngle = 30f;
-    private const float minTurnAngle = 18f;
+    private const float maxTurnAngle = 40f;
+    private const float minTurnAngle = 22f;
     private const float reverseSpeed = 100f;
     private const float downforceCoefficient = 10f;
     public Transform tireFrontL;
@@ -53,7 +53,7 @@ public class Movement : MonoBehaviour
                 isBreakingR = true;
             }
         }
-        else if (playerInput.actions["Brake"].IsPressed())
+        if (playerInput.actions["Brake"].IsPressed())
         {
             isBreakingR = false;
             if (currentSpeed > 0f)
@@ -66,7 +66,7 @@ public class Movement : MonoBehaviour
                 Reverse();
             }
         }
-        else
+        if(!playerInput.actions["Throttle"].IsPressed()&&!playerInput.actions["Brake"].IsPressed())
         {
             isBreaking = false;
             isBreakingR = false;
@@ -117,15 +117,15 @@ public class Movement : MonoBehaviour
         {
             if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / (2 * breakTime));
+                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / (2 * breakTime));
             }
             else if (playerInput.actions["Turn"].IsPressed())
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
+                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
             }
             else
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, -10, Time.deltaTime / breakTime);
+                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / breakTime);
             }
             if (currentSpeed < 0)
             {
@@ -136,15 +136,15 @@ public class Movement : MonoBehaviour
         {
             if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / (2 * breakTime));
+                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (2 * breakTime));
             }
             else if (playerInput.actions["Turn"].IsPressed())
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
+                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
             }
             else
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, 10, Time.deltaTime / breakTime);
+                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / breakTime);
             }
             if (currentSpeed > 0)
             {
@@ -213,7 +213,7 @@ public class Movement : MonoBehaviour
         if (Mathf.Abs(currentSpeed) >= 2)
         {
             Quaternion turnRotation = Quaternion.Euler(0, turnAngle * Time.deltaTime * turnSpeed, 0);
-            if (playerInput.actions["Brake"].IsPressed() && !isBreaking)
+            if (currentSpeed < 0)
             {
                 turnRotation = Quaternion.Euler(0, -turnAngle * Time.deltaTime * turnSpeed, 0);
             }
@@ -226,7 +226,7 @@ public class Movement : MonoBehaviour
 
     void AnimateWheels(float angle)
     {
-        float turnAngle = angle * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+        float turnAngle = angle * 0.8f * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
 
         if (tireFrontL != null && tireFrontR != null)
         {
