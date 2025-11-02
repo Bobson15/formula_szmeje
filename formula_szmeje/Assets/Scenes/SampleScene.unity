@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 1368391}
   m_Layer: 0
   m_Name: SCutL7
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -863,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 27574253}
   m_Layer: 0
   m_Name: RoadCut45
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 42445826}
   m_Layer: 0
   m_Name: RoadCut21
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1699,7 +1699,7 @@ GameObject:
   - component: {fileID: 46759699}
   m_Layer: 0
   m_Name: SCutR12
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2210,7 +2210,7 @@ GameObject:
   - component: {fileID: 64650500}
   m_Layer: 0
   m_Name: SCutL43
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2940,7 +2940,7 @@ GameObject:
   - component: {fileID: 89102146}
   m_Layer: 0
   m_Name: SCutL18
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3100,7 +3100,7 @@ GameObject:
   - component: {fileID: 95831818}
   m_Layer: 0
   m_Name: SCutL25
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3272,7 +3272,7 @@ GameObject:
   - component: {fileID: 110377873}
   m_Layer: 0
   m_Name: RoadCut34
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3396,7 +3396,7 @@ GameObject:
   - component: {fileID: 115137223}
   m_Layer: 0
   m_Name: SCutR23
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4641,7 +4641,7 @@ GameObject:
   - component: {fileID: 136040173}
   m_Layer: 0
   m_Name: SCutR27
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5780,7 +5780,7 @@ GameObject:
   - component: {fileID: 169178315}
   m_Layer: 0
   m_Name: SCutL31
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5878,7 +5878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalScale.z
@@ -6268,7 +6268,7 @@ GameObject:
   - component: {fileID: 179675187}
   m_Layer: 0
   m_Name: SCutR20
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6463,7 +6463,7 @@ GameObject:
   - component: {fileID: 192147395}
   m_Layer: 0
   m_Name: SCutR43
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7828,7 +7828,7 @@ GameObject:
   - component: {fileID: 210393435}
   m_Layer: 0
   m_Name: RoadCut36
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8268,7 +8268,7 @@ GameObject:
   - component: {fileID: 237464689}
   m_Layer: 0
   m_Name: SCutL1
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8499,7 +8499,7 @@ GameObject:
   - component: {fileID: 243986168}
   m_Layer: 0
   m_Name: SCutL30
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9475,7 +9475,7 @@ GameObject:
   - component: {fileID: 271852470}
   m_Layer: 0
   m_Name: RoadCut18
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9739,7 +9739,7 @@ GameObject:
   - component: {fileID: 280699231}
   m_Layer: 0
   m_Name: SCutR35
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10026,7 +10026,7 @@ GameObject:
   - component: {fileID: 283882630}
   m_Layer: 0
   m_Name: RoadCut41
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10126,7 +10126,7 @@ GameObject:
   - component: {fileID: 288713087}
   m_Layer: 0
   m_Name: SCutL12
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10680,7 +10680,7 @@ GameObject:
   - component: {fileID: 306620094}
   m_Layer: 0
   m_Name: SCutL32
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11437,7 +11437,7 @@ GameObject:
   - component: {fileID: 325642873}
   m_Layer: 0
   m_Name: SCutR19
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11700,7 +11700,7 @@ GameObject:
   - component: {fileID: 326950698}
   m_Layer: 0
   m_Name: RoadCut43
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11839,7 +11839,7 @@ GameObject:
   - component: {fileID: 341210991}
   m_Layer: 0
   m_Name: SCutL10
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12102,7 +12102,7 @@ GameObject:
   - component: {fileID: 342530056}
   m_Layer: 0
   m_Name: RoadCut28
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12495,7 +12495,7 @@ GameObject:
   - component: {fileID: 370490106}
   m_Layer: 0
   m_Name: SCutR28
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12594,7 +12594,7 @@ GameObject:
   - component: {fileID: 373322174}
   m_Layer: 0
   m_Name: SCutR1
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13210,7 +13210,7 @@ GameObject:
   - component: {fileID: 403198863}
   m_Layer: 0
   m_Name: SCutR44
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13925,6 +13925,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &432898201 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &434546771
 Mesh:
   m_ObjectHideFlags: 0
@@ -14353,7 +14358,7 @@ GameObject:
   - component: {fileID: 456725209}
   m_Layer: 0
   m_Name: RoadCut33
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14626,7 +14631,7 @@ GameObject:
   - component: {fileID: 473899114}
   m_Layer: 0
   m_Name: SCutR5
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14725,7 +14730,7 @@ GameObject:
   - component: {fileID: 484543088}
   m_Layer: 0
   m_Name: SCutL36
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14981,7 +14986,7 @@ GameObject:
   - component: {fileID: 494361731}
   m_Layer: 0
   m_Name: SCutL14
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15545,7 +15550,7 @@ GameObject:
   - component: {fileID: 504782322}
   m_Layer: 0
   m_Name: RoadCut22
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15833,7 +15838,7 @@ GameObject:
   - component: {fileID: 516361058}
   m_Layer: 0
   m_Name: SCutR33
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15932,7 +15937,7 @@ GameObject:
   - component: {fileID: 520563827}
   m_Layer: 0
   m_Name: SCutR6
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16017,6 +16022,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2070197484}
+--- !u!146 &522996560 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 1085321574605960994, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!134 &524056982
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -16622,7 +16632,7 @@ GameObject:
   - component: {fileID: 540113034}
   m_Layer: 0
   m_Name: SCutL22
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17290,7 +17300,7 @@ GameObject:
   - component: {fileID: 556703986}
   m_Layer: 0
   m_Name: RoadCut26
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17718,7 +17728,7 @@ GameObject:
   - component: {fileID: 564620569}
   m_Layer: 0
   m_Name: RoadCut38
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21755,7 +21765,7 @@ GameObject:
   - component: {fileID: 591983663}
   m_Layer: 0
   m_Name: SCutL21
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22727,7 +22737,7 @@ GameObject:
   - component: {fileID: 630622181}
   m_Layer: 0
   m_Name: SCutR13
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22838,7 +22848,7 @@ GameObject:
   - component: {fileID: 634386388}
   m_Layer: 0
   m_Name: SCutL15
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22961,7 +22971,7 @@ GameObject:
   - component: {fileID: 637780161}
   m_Layer: 0
   m_Name: SCutL28
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23072,7 +23082,7 @@ GameObject:
   - component: {fileID: 638605414}
   m_Layer: 0
   m_Name: SCutR40
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23274,7 +23284,7 @@ GameObject:
   - component: {fileID: 651536897}
   m_Layer: 0
   m_Name: RoadCut35
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23562,7 +23572,7 @@ GameObject:
   - component: {fileID: 662049942}
   m_Layer: 0
   m_Name: RoadCut25
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24273,7 +24283,7 @@ GameObject:
   - component: {fileID: 685029335}
   m_Layer: 0
   m_Name: SCutL24
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24485,7 +24495,7 @@ GameObject:
   - component: {fileID: 702974362}
   m_Layer: 0
   m_Name: SCutR39
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25934,7 +25944,7 @@ GameObject:
   - component: {fileID: 748038069}
   m_Layer: 0
   m_Name: RoadCut37
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26259,7 +26269,7 @@ GameObject:
   - component: {fileID: 756778982}
   m_Layer: 0
   m_Name: SCutL33
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26534,7 +26544,7 @@ GameObject:
   - component: {fileID: 762990318}
   m_Layer: 0
   m_Name: RoadCut19
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27478,7 +27488,7 @@ GameObject:
   - component: {fileID: 789423937}
   m_Layer: 0
   m_Name: SCutL34
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27951,7 +27961,7 @@ GameObject:
   - component: {fileID: 811725676}
   m_Layer: 0
   m_Name: SCutR45
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28050,7 +28060,7 @@ GameObject:
   - component: {fileID: 814535749}
   m_Layer: 0
   m_Name: SCutL27
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28233,7 +28243,7 @@ GameObject:
   - component: {fileID: 823008413}
   m_Layer: 0
   m_Name: SCutL0
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28865,7 +28875,7 @@ GameObject:
   - component: {fileID: 857784501}
   m_Layer: 0
   m_Name: RoadCut27
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28965,7 +28975,7 @@ GameObject:
   - component: {fileID: 858640280}
   m_Layer: 0
   m_Name: SCutR2
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29263,7 +29273,7 @@ GameObject:
   - component: {fileID: 869423971}
   m_Layer: 0
   m_Name: RoadCut12
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29363,7 +29373,7 @@ GameObject:
   - component: {fileID: 869552859}
   m_Layer: 0
   m_Name: SCutL44
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29790,7 +29800,7 @@ GameObject:
   - component: {fileID: 881036600}
   m_Layer: 0
   m_Name: SCutL6
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30489,7 +30499,7 @@ GameObject:
   - component: {fileID: 901984765}
   m_Layer: 0
   m_Name: SCutR14
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30692,6 +30702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
+--- !u!146 &919334308 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 7127495261415348790, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &920776791
 GameObject:
   m_ObjectHideFlags: 0
@@ -31940,7 +31955,7 @@ GameObject:
   - component: {fileID: 943072392}
   m_Layer: 0
   m_Name: RoadCut40
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32207,14 +32222,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.0039984058, y: -0.99917424, z: 0.039070055, w: -0.01041987}
-  m_LocalPosition: {x: -0.018999254, y: 0.618, z: -0.027998228}
+  m_LocalRotation: {x: 0.039111335, y: -0.00014061997, z: 0.0035926027, w: 0.9992284}
+  m_LocalPosition: {x: 0, y: 0.52, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.4, z: 0.39999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1804216996}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 4.483, y: -181.179, z: 0.412}
+  m_LocalEulerAnglesHint: {x: 4.483, y: 0, z: 0.412}
 --- !u!1 &971801966
 GameObject:
   m_ObjectHideFlags: 0
@@ -32229,7 +32244,7 @@ GameObject:
   - component: {fileID: 971801968}
   m_Layer: 0
   m_Name: RoadCut10
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32529,7 +32544,7 @@ GameObject:
   - component: {fileID: 991193981}
   m_Layer: 0
   m_Name: SCutR25
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32628,7 +32643,7 @@ GameObject:
   - component: {fileID: 996940595}
   m_Layer: 0
   m_Name: SCutR16
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32727,7 +32742,7 @@ GameObject:
   - component: {fileID: 997297724}
   m_Layer: 0
   m_Name: SCutL37
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33383,7 +33398,7 @@ GameObject:
   - component: {fileID: 1011259140}
   m_Layer: 0
   m_Name: SCutR3
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33482,7 +33497,7 @@ GameObject:
   - component: {fileID: 1012521509}
   m_Layer: 0
   m_Name: RoadCut9
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33897,7 +33912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalScale.z
@@ -33959,7 +33974,7 @@ GameObject:
   - component: {fileID: 1036376240}
   m_Layer: 0
   m_Name: SCutL42
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34142,7 +34157,7 @@ GameObject:
   - component: {fileID: 1039141736}
   m_Layer: 0
   m_Name: RoadCut15
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34416,7 +34431,7 @@ GameObject:
   - component: {fileID: 1053334203}
   m_Layer: 0
   m_Name: RoadCut14
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34529,269 +34544,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.39613038
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19574013
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.1568604
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.50395507
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19574013
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.1103271
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.025932735
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996637
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.4961426
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19574109
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2107178
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.36625367
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19574109
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2552856
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.041015625
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19927588
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.1375732
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400008, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.07998657
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.18769637
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2004029
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400010, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.0012390137
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.35408345
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.36663818
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.013494873
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.29892102
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0883667
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0259305
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -5.962398e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9996638
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 6.279956e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 400014, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.028
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_RootOrder
@@ -34823,19 +34586,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.011233083
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.999937
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -34843,11 +34606,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 178.713
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470208939306137457, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288320772187281979, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266634163959387408, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704298774855948240, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084018506884716238, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7506226433210383234, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234142779102077674, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337517062331127808, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2659275591687440428, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
@@ -35502,7 +35297,7 @@ GameObject:
   - component: {fileID: 1084523635}
   m_Layer: 0
   m_Name: SCutR7
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35777,7 +35572,7 @@ GameObject:
   - component: {fileID: 1092360809}
   m_Layer: 0
   m_Name: SCutL16
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35862,6 +35657,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2062942010}
+--- !u!146 &1095576702 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 8264458734545296547, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1100230591
 Mesh:
   m_ObjectHideFlags: 0
@@ -36724,7 +36524,7 @@ GameObject:
   - component: {fileID: 1114269512}
   m_Layer: 0
   m_Name: RoadCut5
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37404,7 +37204,7 @@ GameObject:
   - component: {fileID: 1138277938}
   m_Layer: 0
   m_Name: SCutL40
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37679,7 +37479,7 @@ GameObject:
   - component: {fileID: 1143612361}
   m_Layer: 0
   m_Name: SCutL5
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38215,7 +38015,7 @@ GameObject:
   - component: {fileID: 1180953771}
   m_Layer: 0
   m_Name: RoadCut16
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38501,7 +38301,7 @@ GameObject:
   - component: {fileID: 1193916644}
   m_Layer: 0
   m_Name: SCutR32
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38928,7 +38728,7 @@ GameObject:
   - component: {fileID: 1200040613}
   m_Layer: 0
   m_Name: RoadCut11
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39202,7 +39002,7 @@ GameObject:
   - component: {fileID: 1214985685}
   m_Layer: 0
   m_Name: RoadCut39
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39794,7 +39594,7 @@ GameObject:
   - component: {fileID: 1225201825}
   m_Layer: 0
   m_Name: RoadCut0
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39894,7 +39694,7 @@ GameObject:
   - component: {fileID: 1227293723}
   m_Layer: 0
   m_Name: SCutR21
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39992,7 +39792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalScale.z
@@ -40054,7 +39854,7 @@ GameObject:
   - component: {fileID: 1237228920}
   m_Layer: 0
   m_Name: SCutR29
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40153,7 +39953,7 @@ GameObject:
   - component: {fileID: 1244145663}
   m_Layer: 0
   m_Name: RoadCut17
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40429,7 +40229,7 @@ GameObject:
   - component: {fileID: 1252467804}
   m_Layer: 0
   m_Name: SCutR41
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40692,7 +40492,7 @@ GameObject:
   - component: {fileID: 1256227034}
   m_Layer: 0
   m_Name: RoadCut20
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41267,7 +41067,7 @@ GameObject:
   - component: {fileID: 1271029659}
   m_Layer: 0
   m_Name: SCutL23
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41751,7 +41551,7 @@ GameObject:
   - component: {fileID: 1277822850}
   m_Layer: 0
   m_Name: SCutL4
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41862,7 +41662,7 @@ GameObject:
   - component: {fileID: 1281478248}
   m_Layer: 0
   m_Name: SCutR38
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41961,7 +41761,7 @@ GameObject:
   - component: {fileID: 1289262112}
   m_Layer: 0
   m_Name: RoadCut8
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42502,7 +42302,7 @@ GameObject:
   - component: {fileID: 1322514710}
   m_Layer: 0
   m_Name: SCutL3
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43208,7 +43008,7 @@ GameObject:
   - component: {fileID: 1339777700}
   m_Layer: 0
   m_Name: RoadCut42
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43458,6 +43258,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!146 &1346472915 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 1172714299508047044, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352139423
 GameObject:
   m_ObjectHideFlags: 0
@@ -43835,7 +43640,7 @@ GameObject:
   - component: {fileID: 1370208887}
   m_Layer: 0
   m_Name: SCutR26
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44262,7 +44067,7 @@ GameObject:
   - component: {fileID: 1372316256}
   m_Layer: 0
   m_Name: SCutR22
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45063,7 +44868,7 @@ GameObject:
   - component: {fileID: 1397620778}
   m_Layer: 0
   m_Name: SCutL35
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45174,7 +44979,7 @@ GameObject:
   - component: {fileID: 1410041520}
   m_Layer: 0
   m_Name: RoadCut31
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45286,7 +45091,7 @@ GameObject:
   - component: {fileID: 1412169011}
   m_Layer: 0
   m_Name: RoadCut13
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45714,7 +45519,7 @@ GameObject:
   - component: {fileID: 1416122966}
   m_Layer: 0
   m_Name: SCutL9
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45837,7 +45642,7 @@ GameObject:
   - component: {fileID: 1419660779}
   m_Layer: 0
   m_Name: SCutR42
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46646,7 +46451,7 @@ GameObject:
   - component: {fileID: 1439492349}
   m_Layer: 0
   m_Name: SCutL38
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46865,7 +46670,7 @@ GameObject:
   - component: {fileID: 1459747760}
   m_Layer: 0
   m_Name: SCutR31
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46976,7 +46781,7 @@ GameObject:
   - component: {fileID: 1472850904}
   m_Layer: 0
   m_Name: SCutL45
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47075,7 +46880,7 @@ GameObject:
   - component: {fileID: 1474862584}
   m_Layer: 0
   m_Name: SCutR34
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47851,7 +47656,7 @@ GameObject:
   - component: {fileID: 1505363926}
   m_Layer: 0
   m_Name: SCutR9
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47962,7 +47767,7 @@ GameObject:
   - component: {fileID: 1517075822}
   m_Layer: 0
   m_Name: SCutR0
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48085,7 +47890,7 @@ GameObject:
   - component: {fileID: 1527097021}
   m_Layer: 0
   m_Name: SCutL13
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48474,7 +48279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalScale.z
@@ -49090,7 +48895,7 @@ GameObject:
   - component: {fileID: 1563342338}
   m_Layer: 0
   m_Name: RoadCut1
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49190,7 +48995,7 @@ GameObject:
   - component: {fileID: 1571850090}
   m_Layer: 0
   m_Name: SCutL39
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50048,7 +49853,7 @@ GameObject:
   - component: {fileID: 1582502815}
   m_Layer: 0
   m_Name: RoadCut4
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50263,7 +50068,7 @@ GameObject:
   - component: {fileID: 1592571843}
   m_Layer: 0
   m_Name: SCutL17
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50913,7 +50718,7 @@ GameObject:
   - component: {fileID: 1619283738}
   m_Layer: 0
   m_Name: SCutR8
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51259,7 +51064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51322,7 +51127,7 @@ GameObject:
   - component: {fileID: 1639895778}
   m_Layer: 0
   m_Name: SCutR18
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51669,7 +51474,7 @@ GameObject:
   - component: {fileID: 1654194741}
   m_Layer: 0
   m_Name: SCutR37
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51844,7 +51649,7 @@ GameObject:
   - component: {fileID: 1655097363}
   m_Layer: 0
   m_Name: SCutR17
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51943,7 +51748,7 @@ GameObject:
   - component: {fileID: 1655223416}
   m_Layer: 0
   m_Name: SCutR36
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52661,7 +52466,7 @@ GameObject:
   - component: {fileID: 1673641607}
   m_Layer: 0
   m_Name: SCutL26
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53298,7 +53103,7 @@ GameObject:
   - component: {fileID: 1706632712}
   m_Layer: 0
   m_Name: SCutR15
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53585,7 +53390,7 @@ GameObject:
   - component: {fileID: 1726419444}
   m_Layer: 0
   m_Name: SCutL8
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54124,7 +53929,7 @@ GameObject:
   - component: {fileID: 1748385378}
   m_Layer: 0
   m_Name: RoadCut3
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54817,7 +54622,7 @@ GameObject:
   - component: {fileID: 1763968975}
   m_Layer: 0
   m_Name: SCutR10
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55013,7 +54818,7 @@ GameObject:
   - component: {fileID: 1776759256}
   m_Layer: 0
   m_Name: RoadCut6
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55341,7 +55146,7 @@ GameObject:
   - component: {fileID: 1790275917}
   m_Layer: 0
   m_Name: SCutR30
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55924,6 +55729,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tireFrontL: {fileID: 243629920}
   tireFrontR: {fileID: 701546293}
+  tireBackL: {fileID: 2099281565}
+  tireBackR: {fileID: 432898201}
+  tireFrontLCollider: {fileID: 1346472915}
+  tireFrontRCollider: {fileID: 919334308}
+  tireBackLCollider: {fileID: 1095576702}
+  tireBackRCollider: {fileID: 522996560}
   contr: {fileID: 1855159093}
 --- !u!114 &1804217003
 MonoBehaviour:
@@ -56292,7 +56103,7 @@ GameObject:
   - component: {fileID: 1812429872}
   m_Layer: 0
   m_Name: RoadCut23
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56781,7 +56592,7 @@ GameObject:
   - component: {fileID: 1829908090}
   m_Layer: 0
   m_Name: RoadCut7
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57250,7 +57061,7 @@ GameObject:
   - component: {fileID: 1853559897}
   m_Layer: 0
   m_Name: SCutL11
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57438,7 +57249,7 @@ GameObject:
   - component: {fileID: 1866146919}
   m_Layer: 0
   m_Name: RoadCut24
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57537,7 +57348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9148960239488163218, guid: 87e0acbd6ddf7814097e377d5a5c716d, type: 3}
       propertyPath: m_LocalScale.z
@@ -57763,7 +57574,7 @@ GameObject:
   - component: {fileID: 1874291223}
   m_Layer: 0
   m_Name: SCutR4
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58190,7 +58001,7 @@ GameObject:
   - component: {fileID: 1886101856}
   m_Layer: 0
   m_Name: RoadCut32
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58314,7 +58125,7 @@ GameObject:
   - component: {fileID: 1893647811}
   m_Layer: 0
   m_Name: RoadCut29
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58578,7 +58389,7 @@ GameObject:
   - component: {fileID: 1895054162}
   m_Layer: 0
   m_Name: SCutL2
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58862,7 +58673,7 @@ GameObject:
   - component: {fileID: 1909598795}
   m_Layer: 0
   m_Name: SCutL41
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59379,7 +59190,7 @@ GameObject:
   - component: {fileID: 1935890670}
   m_Layer: 0
   m_Name: RoadCut30
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59903,7 +59714,7 @@ GameObject:
   - component: {fileID: 1949540508}
   m_Layer: 0
   m_Name: SCutL29
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60930,7 +60741,7 @@ GameObject:
   - component: {fileID: 1997704399}
   m_Layer: 0
   m_Name: RoadCut2
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61634,7 +61445,7 @@ GameObject:
   - component: {fileID: 2037886066}
   m_Layer: 0
   m_Name: SCutL20
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62897,7 +62708,7 @@ GameObject:
   - component: {fileID: 2069598216}
   m_Layer: 0
   m_Name: SCutL19
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63427,7 +63238,7 @@ GameObject:
   - component: {fileID: 2075857165}
   m_Layer: 0
   m_Name: SCutR11
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63526,7 +63337,7 @@ GameObject:
   - component: {fileID: 2080849264}
   m_Layer: 0
   m_Name: SCutR24
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64132,6 +63943,11 @@ PhysicMaterial:
   bounciness: 0
   frictionCombine: 0
   bounceCombine: 0
+--- !u!4 &2099281565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400006, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
+  m_PrefabInstance: {fileID: 1057459569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2100864224
 GameObject:
   m_ObjectHideFlags: 0
@@ -64699,7 +64515,7 @@ GameObject:
   - component: {fileID: 2138983851}
   m_Layer: 0
   m_Name: RoadCut44
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

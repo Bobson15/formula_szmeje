@@ -1,30 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 public class Movement : MonoBehaviour
 {
-    private const float topSpeed = 350f;
-    private const float accelerationTime = 1f;
-    private const float breakTime = 1.9f;
+    private const float topSpeed = 330f;
+    private const float horsePower = 4500f;
+    private const float brakePower = 10500f;
     private const float turnSpeed = 2f;
-    private const float maxTurnAngle = 40f;
-    private const float minTurnAngle = 22f;
-    private const float reverseSpeed = 100f;
-    private const float downforceCoefficient = 10f;
+    private const float maxTurnAngle = 32f;
+    private const float minTurnAngle = 21f;
+    private const float downforceCoefficient = 15f;
     public Transform tireFrontL;
     public Transform tireFrontR;
+    public Transform tireBackL;
+    public Transform tireBackR;
+    public WheelCollider tireFrontLCollider;
+    public WheelCollider tireFrontRCollider;
+    public WheelCollider tireBackLCollider;
+    public WheelCollider tireBackRCollider;
     public Transform contr;
     private Rigidbody rb;
     private PlayerInput playerInput;
     private int gear = 1;
-    private float currentSpeed = 0f;
     private float changingGearTime = 0f;
-    private bool isBreaking = false;
-    private bool isBreakingR = false;
+    private bool ABS = false;
+    private CarState carState = CarState.Stop;
 
     void Start()
     {
@@ -33,44 +41,51 @@ public class Movement : MonoBehaviour
         rb.centerOfMass = new Vector3(0, -1, 0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
-
+        Turn();
         if (playerInput.actions["Throttle"].IsPressed())
         {
-            isBreaking = false;
-            if (currentSpeed >= 0f)
+            if (carState != CarState.Backward)
             {
-                if (changingGearTime <= 0 && !isBreakingR)
+                if (changingGearTime <= 0f)
                 {
                     Accelerate();
                 }
+                carState = CarState.Forward;
             }
             else
             {
                 Break();
-                isBreakingR = true;
+                if(rb.velocity.magnitude < 0.1)
+                {
+                    carState = CarState.Stop;
+                }
             }
         }
         if (playerInput.actions["Brake"].IsPressed())
         {
-            isBreakingR = false;
-            if (currentSpeed > 0f)
+            if (carState == CarState.Forward)
             {
                 Break();
-                isBreaking = true;
+                if (rb.velocity.magnitude < 0.1)
+                {
+                    carState = CarState.Stop;
+                }
             }
-            else if (!isBreaking)
+            else
             {
                 Reverse();
+                carState = CarState.Backward;
             }
         }
         if(!playerInput.actions["Throttle"].IsPressed()&&!playerInput.actions["Brake"].IsPressed())
         {
-            isBreaking = false;
-            isBreakingR = false;
             Decelerate();
+            if (rb.velocity.magnitude < 0.1)
+            {
+                carState = CarState.Stop;
+            }
         }
         if (rb.velocity.magnitude * 3.6f > 100 + 35 * (gear - 1) && gear < 8)
         {
@@ -86,161 +101,187 @@ public class Movement : MonoBehaviour
         {
             changingGearTime -= Time.deltaTime;
         }
-        Turn();
+        rb.AddForce(new Vector3(0, Mathf.Pow(Mathf.Abs(rb.velocity.magnitude) * 3.6f, 2) * -downforceCoefficient * 0.01f, 0), ForceMode.Force);
     }
-    private void FixedUpdate()
-    {
-        rb.AddForce(new Vector3(0, Mathf.Pow(Mathf.Abs(rb.velocity.magnitude) * 3.6f, 2) * -downforceCoefficient * (rb.mass/10000), 0), ForceMode.Force);
-    }
-
     void Accelerate()
     {
-        float targetSpeed;
-        targetSpeed = (110f + 33f * gear) / 3.6f;
-        if (rb.velocity.magnitude * 3.6f < topSpeed)
+        float targetPower = horsePower - (horsePower / 10) * (gear-1);
+        tireBackLCollider.motorTorque = targetPower;
+        tireBackRCollider.motorTorque = targetPower;
+        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f && !playerInput.actions["Brake"].IsPressed())
         {
-            if (gear > 1)
-            {
-                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / ((gear-1) * accelerationTime * 0.4f));
-            }
-            else
-            {
-                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / accelerationTime);
-            }
+            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forward;
+            tireFrontLCollider.sidewaysFriction = sideways;
+            tireFrontRCollider.forwardFriction = forward;
+            tireFrontRCollider.sidewaysFriction = sideways;
         }
-        Vector3 forwardVelocity = -transform.forward * currentSpeed;
-        rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
     }
     void Break()
     {
-        if (currentSpeed > 0)
+        /*if (tireBackLCollider.GetGroundHit(out WheelHit tireBackLhit))
         {
-            if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
+            if (Mathf.Abs(tireBackLhit.forwardSlip) < 0.5f)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / (2 * breakTime));
-            }
-            else if (playerInput.actions["Turn"].IsPressed())
-            {
-                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
+                tireBackLCollider.brakeTorque = brakePower * 0.4f;
             }
             else
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, -(Mathf.Sqrt(currentSpeed) * 8 + 20), Time.deltaTime / breakTime);
+                tireBackLCollider.brakeTorque = 0f;
             }
-            if (currentSpeed < 0)
+        }
+        if (tireBackRCollider.GetGroundHit(out WheelHit tireBackRhit))
+        {
+            if (Mathf.Abs(tireBackRhit.forwardSlip) < 0.5f)
             {
-                currentSpeed = 0;
+                tireBackRCollider.brakeTorque = brakePower * 0.4f;
+            }
+            else
+            {
+                tireBackRCollider.brakeTorque = 0f;
+            }
+        }
+        if (tireFrontLCollider.GetGroundHit(out WheelHit tireFrontLhit))
+        {
+            if (Mathf.Abs(tireFrontLhit.forwardSlip) < 0.5f)
+            {
+                tireFrontLCollider.brakeTorque = brakePower * 0.6f;
+            }
+            else
+            {
+                tireFrontLCollider.brakeTorque = 0f;
+            }
+        }
+        if (tireFrontRCollider.GetGroundHit(out WheelHit tireFrontRhit))
+        {
+            if (Mathf.Abs(tireFrontRhit.forwardSlip) < 0.5f)
+            {
+                tireFrontRCollider.brakeTorque = brakePower * 0.6f;
+            }
+            else
+            {
+                tireFrontRCollider.brakeTorque = 0f;
+            }
+        }*/
+        if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()) || Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x) > 0.1f)
+        {
+            tireBackLCollider.brakeTorque = brakePower * 0.1f;
+            tireBackRCollider.brakeTorque = brakePower * 0.1f;
+            tireFrontLCollider.brakeTorque = brakePower * 0.15f;
+            tireFrontRCollider.brakeTorque = brakePower * 0.15f;
+            if (tireFrontLCollider.sidewaysFriction.stiffness < 2.6f)
+            {
+                WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
+                WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+                forward.stiffness = Mathf.Max(forward.stiffness - (1.5f * Time.deltaTime), 1.75f);
+                sideways.stiffness = Mathf.Min(sideways.stiffness + (3f * Time.deltaTime), 2.6f);
+                tireFrontLCollider.forwardFriction = forward;
+                tireFrontLCollider.sidewaysFriction = sideways;
+                tireFrontRCollider.forwardFriction = forward;
+                tireFrontRCollider.sidewaysFriction = sideways;
             }
         }
         else
         {
-            if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()))
+            tireBackLCollider.brakeTorque = brakePower * 0.4f;
+            tireBackRCollider.brakeTorque = brakePower * 0.4f;
+            tireFrontLCollider.brakeTorque = brakePower * 0.6f;
+            tireFrontRCollider.brakeTorque = brakePower * 0.6f;
+            if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (2 * breakTime));
-            }
-            else if (playerInput.actions["Turn"].IsPressed())
-            {
-                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (breakTime + breakTime * Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x)));
-            }
-            else
-            {
-                currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / breakTime);
-            }
-            if (currentSpeed > 0)
-            {
-                currentSpeed = 0;
+                WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
+                WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+                forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+                sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
+                tireFrontLCollider.forwardFriction = forward;
+                tireFrontLCollider.sidewaysFriction = sideways;
+                tireFrontRCollider.forwardFriction = forward;
+                tireFrontRCollider.sidewaysFriction = sideways;
             }
         }
-        Vector3 forwardVelocity = -transform.forward * currentSpeed;
-        rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
     }
 
     void Reverse()
     {
-        float targetSpeed;
-        targetSpeed = -reverseSpeed / 3.6f;
-        if (rb.velocity.magnitude < (-targetSpeed) / 2)
+        tireBackLCollider.motorTorque = -horsePower/6;
+        tireBackRCollider.motorTorque = -horsePower/6;
+        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f && !playerInput.actions["Throttle"].IsPressed())
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime / accelerationTime);
+            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forward;
+            tireFrontLCollider.sidewaysFriction = sideways;
+            tireFrontRCollider.forwardFriction = forward;
+            tireFrontRCollider.sidewaysFriction = sideways;
         }
-        Vector3 reverseVelocity = -transform.forward * currentSpeed;
-        rb.velocity = new Vector3(reverseVelocity.x, rb.velocity.y, reverseVelocity.z);
     }
 
     void Decelerate()
     {
-        if (currentSpeed > 0)
+        tireBackLCollider.motorTorque = 0;
+        tireBackRCollider.motorTorque = 0;
+        tireBackLCollider.brakeTorque = 0;
+        tireBackRCollider.brakeTorque = 0;
+        tireFrontLCollider.brakeTorque = 0;
+        tireFrontRCollider.brakeTorque = 0;
+        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, -20, Time.deltaTime / (accelerationTime * 6));
-            if (currentSpeed < 0)
-            {
-                currentSpeed = 0;
-            }
+            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forward;
+            tireFrontLCollider.sidewaysFriction = sideways;
+            tireFrontRCollider.forwardFriction = forward;
+            tireFrontRCollider.sidewaysFriction = sideways;
         }
-        else
-        {
-            currentSpeed = Mathf.Lerp(currentSpeed, 20, Time.deltaTime / (accelerationTime * 6));
-            if (currentSpeed > 0)
-            {
-                currentSpeed = 0;
-            }
-        }
-        Vector3 forwardVelocity = -transform.forward * currentSpeed;
-        rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
     }
 
     void Turn()
     {
         float turnAngle = 0;
+        float stearingWheelTurnAngle = 0;
         if (playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed())
         {
             turnAngle = -1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
-            AnimateWheels(-1);
+            stearingWheelTurnAngle = -1;
         }
         else if (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed())
         {
             turnAngle = 1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
-            AnimateWheels(1);
+            stearingWheelTurnAngle = 1;
         }
         else if (playerInput.actions["Turn"].IsPressed()) {
             turnAngle = playerInput.actions["Turn"].ReadValue<Vector2>().x * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
-            AnimateWheels(playerInput.actions["Turn"].ReadValue<Vector2>().x);
+            stearingWheelTurnAngle = playerInput.actions["Turn"].ReadValue<Vector2>().x;
         }
-        else
-        {
-            AnimateWheels(0);
-        }
-        if (Mathf.Abs(currentSpeed) >= 2)
-        {
-            Quaternion turnRotation = Quaternion.Euler(0, turnAngle * Time.deltaTime * turnSpeed, 0);
-            if (currentSpeed < 0)
-            {
-                turnRotation = Quaternion.Euler(0, -turnAngle * Time.deltaTime * turnSpeed, 0);
-            }
-            rb.MoveRotation(rb.rotation * turnRotation);
+        tireFrontLCollider.steerAngle = turnAngle;
+        tireFrontRCollider.steerAngle = turnAngle;
+        tireFrontLCollider.GetWorldPose(out Vector3 tireFrontLPosition, out Quaternion tireFrontLRotation);
+        tireFrontL.position = tireFrontLPosition;
+        tireFrontL.rotation = tireFrontLRotation;
+        tireFrontRCollider.GetWorldPose(out Vector3 tireFrontRPosition, out Quaternion tireFrontRRotation);
+        tireFrontR.position = tireFrontRPosition;
+        tireFrontR.rotation = tireFrontRRotation;
+        tireBackLCollider.GetWorldPose(out Vector3 tireBackLPosition, out Quaternion tireBackLRotation);
+        tireBackL.position = tireBackLPosition;
+        tireBackL.rotation = tireBackLRotation;
+        tireBackRCollider.GetWorldPose(out Vector3 tireBackRPosition, out Quaternion tireBackRRotation);
+        tireBackR.position = tireBackRPosition;
+        tireBackR.rotation = tireBackRRotation;
 
-            Vector3 forwardVelocity = -transform.forward * currentSpeed;
-            rb.velocity = new Vector3(forwardVelocity.x, rb.velocity.y, forwardVelocity.z);
-            }
+        Quaternion targetRotation = Quaternion.Euler(0, 0, -stearingWheelTurnAngle * 90f);
+        contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * (turnSpeed * 4));
     }
-
-    void AnimateWheels(float angle)
+    private enum CarState
     {
-        float turnAngle = angle * 0.8f * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
-
-        if (tireFrontL != null && tireFrontR != null)
-        {
-            Quaternion wheelTurn = Quaternion.Euler(tireFrontL.localRotation.x - rb.velocity.magnitude * 7, turnAngle, 0);
-            tireFrontL.localRotation = Quaternion.Lerp(tireFrontL.localRotation, wheelTurn, Time.deltaTime * (turnSpeed*4));
-            tireFrontR.localRotation = Quaternion.Lerp(tireFrontR.localRotation, wheelTurn, Time.deltaTime * (turnSpeed*4));
-        }
-
-        if (contr != null)
-        {
-            float steeringAngle = angle * 90f;
-            Quaternion targetRotation = Quaternion.Euler(0, 0, steeringAngle);
-            contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * (turnSpeed*4));
-        }
-
+        Backward = -1,
+        Stop = 0,
+        Forward = 1
     }
 }
