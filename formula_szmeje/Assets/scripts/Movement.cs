@@ -13,11 +13,11 @@ public class Movement : MonoBehaviour
 {
     private const float topSpeed = 330f;
     private const float horsePower = 4500f;
-    private const float brakePower = 10500f;
+    private const float brakePower = 12000f;
     private const float turnSpeed = 2f;
     private const float maxTurnAngle = 32f;
     private const float minTurnAngle = 21f;
-    private const float downforceCoefficient = 15f;
+    private const float downforceCoefficient = 20f;
     public Transform tireFrontL;
     public Transform tireFrontR;
     public Transform tireBackL;
@@ -31,7 +31,6 @@ public class Movement : MonoBehaviour
     private PlayerInput playerInput;
     private int gear = 1;
     private float changingGearTime = 0f;
-    private bool ABS = false;
     private CarState carState = CarState.Stop;
 
     void Start()
@@ -112,7 +111,7 @@ public class Movement : MonoBehaviour
         {
             WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
             WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
             sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
             tireFrontLCollider.forwardFriction = forward;
             tireFrontLCollider.sidewaysFriction = sideways;
@@ -122,61 +121,28 @@ public class Movement : MonoBehaviour
     }
     void Break()
     {
-        /*if (tireBackLCollider.GetGroundHit(out WheelHit tireBackLhit))
-        {
-            if (Mathf.Abs(tireBackLhit.forwardSlip) < 0.5f)
-            {
-                tireBackLCollider.brakeTorque = brakePower * 0.4f;
-            }
-            else
-            {
-                tireBackLCollider.brakeTorque = 0f;
-            }
-        }
-        if (tireBackRCollider.GetGroundHit(out WheelHit tireBackRhit))
-        {
-            if (Mathf.Abs(tireBackRhit.forwardSlip) < 0.5f)
-            {
-                tireBackRCollider.brakeTorque = brakePower * 0.4f;
-            }
-            else
-            {
-                tireBackRCollider.brakeTorque = 0f;
-            }
-        }
-        if (tireFrontLCollider.GetGroundHit(out WheelHit tireFrontLhit))
-        {
-            if (Mathf.Abs(tireFrontLhit.forwardSlip) < 0.5f)
-            {
-                tireFrontLCollider.brakeTorque = brakePower * 0.6f;
-            }
-            else
-            {
-                tireFrontLCollider.brakeTorque = 0f;
-            }
-        }
-        if (tireFrontRCollider.GetGroundHit(out WheelHit tireFrontRhit))
-        {
-            if (Mathf.Abs(tireFrontRhit.forwardSlip) < 0.5f)
-            {
-                tireFrontRCollider.brakeTorque = brakePower * 0.6f;
-            }
-            else
-            {
-                tireFrontRCollider.brakeTorque = 0f;
-            }
-        }*/
         if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()) || Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x) > 0.1f)
         {
-            tireBackLCollider.brakeTorque = brakePower * 0.1f;
-            tireBackRCollider.brakeTorque = brakePower * 0.1f;
-            tireFrontLCollider.brakeTorque = brakePower * 0.15f;
-            tireFrontRCollider.brakeTorque = brakePower * 0.15f;
+            tireBackLCollider.brakeTorque = brakePower * 0.2f;
+            tireBackRCollider.brakeTorque = brakePower * 0.2f;
+            tireFrontLCollider.brakeTorque = brakePower * 0.3f;
+            tireFrontRCollider.brakeTorque = brakePower * 0.3f;
             if (tireFrontLCollider.sidewaysFriction.stiffness < 2.6f)
             {
                 WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
                 WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-                forward.stiffness = Mathf.Max(forward.stiffness - (1.5f * Time.deltaTime), 1.75f);
+                if (rb.velocity.magnitude * 3.6f > 100)
+                {
+                    forward.stiffness = Mathf.Max(forward.stiffness - (3f * Time.deltaTime), 1.5f);
+                }
+                else if(forward.stiffness > 1.75f)
+                {
+                    forward.stiffness = Mathf.Max(forward.stiffness - (3f * Time.deltaTime), 1.75f);
+                }
+                else if (forward.stiffness < 1.75f)
+                {
+                    forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 1.75f);
+                }
                 sideways.stiffness = Mathf.Min(sideways.stiffness + (3f * Time.deltaTime), 2.6f);
                 tireFrontLCollider.forwardFriction = forward;
                 tireFrontLCollider.sidewaysFriction = sideways;
@@ -194,7 +160,7 @@ public class Movement : MonoBehaviour
             {
                 WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
                 WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-                forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+                forward.stiffness = Mathf.Min(forward.stiffness + (3 * Time.deltaTime), 2.2f);
                 sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
                 tireFrontLCollider.forwardFriction = forward;
                 tireFrontLCollider.sidewaysFriction = sideways;
@@ -212,7 +178,7 @@ public class Movement : MonoBehaviour
         {
             WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
             WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
             sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
             tireFrontLCollider.forwardFriction = forward;
             tireFrontLCollider.sidewaysFriction = sideways;
@@ -233,7 +199,7 @@ public class Movement : MonoBehaviour
         {
             WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
             WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (1.5f * Time.deltaTime), 2.2f);
+            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
             sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
             tireFrontLCollider.forwardFriction = forward;
             tireFrontLCollider.sidewaysFriction = sideways;
