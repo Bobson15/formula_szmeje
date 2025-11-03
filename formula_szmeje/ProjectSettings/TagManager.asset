@@ -8,6 +8,8 @@ TagManager:
   - Sector1
   - Sector2
   - Sector3
+  - Track
+  - Tarka
   layers:
   - Default
   - TransparentFX
