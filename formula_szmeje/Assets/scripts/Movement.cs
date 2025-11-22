@@ -12,7 +12,7 @@ using UnityEngine.XR;
 public class Movement : MonoBehaviour
 {
     private const float topSpeed = 330f;
-    private const float horsePower = 4500f;
+    private const float horsePower = 4800f;
     private const float brakePower = 12000f;
     private const float turnSpeed = 2f;
     private const float maxTurnAngle = 32f;
@@ -101,22 +101,84 @@ public class Movement : MonoBehaviour
             changingGearTime -= Time.deltaTime;
         }
         rb.AddForce(new Vector3(0, Mathf.Pow(Mathf.Abs(rb.velocity.magnitude) * 3.6f, 2) * -downforceCoefficient * 0.01f, 0), ForceMode.Force);
+        WheelHit frontLeftHit;
+        WheelFrictionCurve forwardFrontLeft = tireFrontLCollider.forwardFriction;
+        WheelFrictionCurve forwardFrontRight = tireFrontRCollider.forwardFriction;
+        WheelFrictionCurve forwardBackLeft = tireBackLCollider.forwardFriction;
+        WheelFrictionCurve forwardBackRight = tireBackRCollider.forwardFriction;
+        WheelFrictionCurve forwardOfTrack = tireFrontLCollider.forwardFriction;
+        forwardOfTrack.stiffness = 1.3f;
+        if (tireFrontLCollider.GetGroundHit(out frontLeftHit))
+        {
+            if (frontLeftHit.collider.gameObject.CompareTag("Ground"))
+            {
+                tireFrontLCollider.forwardFriction = forwardOfTrack;
+            }
+            else if(forwardFrontLeft.stiffness == forwardOfTrack.stiffness)
+            {
+                forwardFrontLeft.stiffness = 2.2f;
+                tireFrontLCollider.forwardFriction = forwardFrontLeft;
+            }
+        }
+        WheelHit frontRightHit;
+        if (tireFrontRCollider.GetGroundHit(out frontRightHit))
+        {
+            if (frontRightHit.collider.gameObject.CompareTag("Ground"))
+            {
+                tireFrontRCollider.forwardFriction = forwardOfTrack;
+            }
+            else if(forwardFrontRight.stiffness == forwardOfTrack.stiffness)
+            {
+                forwardFrontRight.stiffness = 2.2f;
+                tireFrontRCollider.forwardFriction = forwardFrontRight;
+            }
+        }
+        WheelHit backLeftHit;
+        if (tireBackLCollider.GetGroundHit(out backLeftHit))
+        {
+            if (backLeftHit.collider.gameObject.CompareTag("Ground"))
+            {
+                tireBackLCollider.forwardFriction = forwardOfTrack;
+            }
+            else if(forwardBackLeft.stiffness == forwardOfTrack.stiffness)
+            {
+                forwardBackLeft.stiffness = 2.2f;
+                tireBackLCollider.forwardFriction = forwardBackLeft;
+            }
+        }
+        WheelHit backRightHit;
+        if (tireBackRCollider.GetGroundHit(out backRightHit))
+        {
+            if (backRightHit.collider.gameObject.CompareTag("Ground"))
+            {
+                tireBackRCollider.forwardFriction = forwardOfTrack;
+            }
+            else if (forwardBackRight.stiffness == forwardOfTrack.stiffness)
+            {
+                forwardBackRight.stiffness = 2.2f;
+                tireBackRCollider.forwardFriction = forwardBackRight;
+            }
+        }
     }
     void Accelerate()
     {
         float targetPower = horsePower - (horsePower / 10) * (gear-1);
         tireBackLCollider.motorTorque = targetPower;
         tireBackRCollider.motorTorque = targetPower;
-        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f && !playerInput.actions["Brake"].IsPressed())
+        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !playerInput.actions["Brake"].IsPressed())
         {
-            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
-            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
-            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
-            tireFrontLCollider.forwardFriction = forward;
-            tireFrontLCollider.sidewaysFriction = sideways;
-            tireFrontRCollider.forwardFriction = forward;
-            tireFrontRCollider.sidewaysFriction = sideways;
+            WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
+            WheelFrictionCurve sidewaysLeft = tireFrontLCollider.sidewaysFriction;
+            WheelFrictionCurve sidewaysRight = tireFrontRCollider.sidewaysFriction;
+            forwardLeft.stiffness = Mathf.Min(forwardLeft.stiffness + (3f * Time.deltaTime), 2.2f);
+            forwardRight.stiffness = Mathf.Min(forwardRight.stiffness + (3f * Time.deltaTime), 2.2f);
+            sidewaysLeft.stiffness = Mathf.Max(sidewaysLeft.stiffness - (3f * Time.deltaTime), 1.9f);
+            sidewaysRight.stiffness = Mathf.Max(sidewaysRight.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forwardLeft;
+            tireFrontLCollider.sidewaysFriction = sidewaysLeft;
+            tireFrontRCollider.forwardFriction = forwardRight;
+            tireFrontRCollider.sidewaysFriction = sidewaysRight;
         }
     }
     void Break()
@@ -127,27 +189,42 @@ public class Movement : MonoBehaviour
             tireBackRCollider.brakeTorque = brakePower * 0.2f;
             tireFrontLCollider.brakeTorque = brakePower * 0.3f;
             tireFrontRCollider.brakeTorque = brakePower * 0.3f;
-            if (tireFrontLCollider.sidewaysFriction.stiffness < 2.6f)
+            if (tireFrontLCollider.sidewaysFriction.stiffness < 2.6f || tireFrontRCollider.sidewaysFriction.stiffness < 2.6f)
             {
-                WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
-                WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
+                WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
+                WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
+                WheelFrictionCurve sidewaysLeft = tireFrontLCollider.sidewaysFriction;
+                WheelFrictionCurve sidewaysRight = tireFrontRCollider.sidewaysFriction;
                 if (rb.velocity.magnitude * 3.6f > 100)
                 {
-                    forward.stiffness = Mathf.Max(forward.stiffness - (3f * Time.deltaTime), 1.5f);
+                    forwardLeft.stiffness = Mathf.Max(forwardLeft.stiffness - (3f * Time.deltaTime), 1.5f);
+                    forwardRight.stiffness = Mathf.Max(forwardRight.stiffness - (3f * Time.deltaTime), 1.5f);
                 }
-                else if(forward.stiffness > 1.75f)
+                else
                 {
-                    forward.stiffness = Mathf.Max(forward.stiffness - (3f * Time.deltaTime), 1.75f);
+                    if (forwardLeft.stiffness > 1.75f)
+                    {
+                        forwardLeft.stiffness = Mathf.Max(forwardLeft.stiffness - (3f * Time.deltaTime), 1.75f);
+                    }
+                    else if (forwardLeft.stiffness < 1.75f)
+                    {
+                        forwardLeft.stiffness = Mathf.Min(forwardLeft.stiffness + (3f * Time.deltaTime), 1.75f);
+                    }
+                    if (forwardRight.stiffness > 1.75f)
+                    {
+                        forwardRight.stiffness = Mathf.Max(forwardRight.stiffness - (3f * Time.deltaTime), 1.75f);
+                    }
+                    else if (forwardRight.stiffness < 1.75f)
+                    {
+                        forwardRight.stiffness = Mathf.Min(forwardRight.stiffness + (3f * Time.deltaTime), 1.75f);
+                    }
                 }
-                else if (forward.stiffness < 1.75f)
-                {
-                    forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 1.75f);
-                }
-                sideways.stiffness = Mathf.Min(sideways.stiffness + (3f * Time.deltaTime), 2.6f);
-                tireFrontLCollider.forwardFriction = forward;
-                tireFrontLCollider.sidewaysFriction = sideways;
-                tireFrontRCollider.forwardFriction = forward;
-                tireFrontRCollider.sidewaysFriction = sideways;
+                sidewaysLeft.stiffness = Mathf.Min(sidewaysLeft.stiffness + (3f * Time.deltaTime), 2.6f);
+                sidewaysRight.stiffness = Mathf.Min(sidewaysRight.stiffness + (3f * Time.deltaTime), 2.6f);
+                tireFrontLCollider.forwardFriction = forwardLeft;
+                tireFrontLCollider.sidewaysFriction = sidewaysLeft;
+                tireFrontRCollider.forwardFriction = forwardRight;
+                tireFrontRCollider.sidewaysFriction = sidewaysRight;
             }
         }
         else
@@ -156,16 +233,20 @@ public class Movement : MonoBehaviour
             tireBackRCollider.brakeTorque = brakePower * 0.4f;
             tireFrontLCollider.brakeTorque = brakePower * 0.6f;
             tireFrontRCollider.brakeTorque = brakePower * 0.6f;
-            if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f)
+            if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f)
             {
-                WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
-                WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-                forward.stiffness = Mathf.Min(forward.stiffness + (3 * Time.deltaTime), 2.2f);
-                sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
-                tireFrontLCollider.forwardFriction = forward;
-                tireFrontLCollider.sidewaysFriction = sideways;
-                tireFrontRCollider.forwardFriction = forward;
-                tireFrontRCollider.sidewaysFriction = sideways;
+                WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
+                WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
+                WheelFrictionCurve sidewaysLeft = tireFrontLCollider.sidewaysFriction;
+                WheelFrictionCurve sidewaysRight = tireFrontRCollider.sidewaysFriction;
+                forwardLeft.stiffness = Mathf.Min(forwardLeft.stiffness + (3f * Time.deltaTime), 2.2f);
+                forwardRight.stiffness = Mathf.Min(forwardRight.stiffness + (3f * Time.deltaTime), 2.2f);
+                sidewaysLeft.stiffness = Mathf.Max(sidewaysLeft.stiffness - (3f * Time.deltaTime), 1.9f);
+                sidewaysRight.stiffness = Mathf.Max(sidewaysRight.stiffness - (3f * Time.deltaTime), 1.9f);
+                tireFrontLCollider.forwardFriction = forwardLeft;
+                tireFrontLCollider.sidewaysFriction = sidewaysLeft;
+                tireFrontRCollider.forwardFriction = forwardRight;
+                tireFrontRCollider.sidewaysFriction = sidewaysRight;
             }
         }
     }
@@ -174,16 +255,20 @@ public class Movement : MonoBehaviour
     {
         tireBackLCollider.motorTorque = -horsePower/6;
         tireBackRCollider.motorTorque = -horsePower/6;
-        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f && !playerInput.actions["Throttle"].IsPressed())
+        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !playerInput.actions["Throttle"].IsPressed())
         {
-            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
-            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
-            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
-            tireFrontLCollider.forwardFriction = forward;
-            tireFrontLCollider.sidewaysFriction = sideways;
-            tireFrontRCollider.forwardFriction = forward;
-            tireFrontRCollider.sidewaysFriction = sideways;
+            WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
+            WheelFrictionCurve sidewaysLeft = tireFrontLCollider.sidewaysFriction;
+            WheelFrictionCurve sidewaysRight = tireFrontRCollider.sidewaysFriction;
+            forwardLeft.stiffness = Mathf.Min(forwardLeft.stiffness + (3f * Time.deltaTime), 2.2f);
+            forwardRight.stiffness = Mathf.Min(forwardRight.stiffness + (3f * Time.deltaTime), 2.2f);
+            sidewaysLeft.stiffness = Mathf.Max(sidewaysLeft.stiffness - (3f * Time.deltaTime), 1.9f);
+            sidewaysRight.stiffness = Mathf.Max(sidewaysRight.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forwardLeft;
+            tireFrontLCollider.sidewaysFriction = sidewaysLeft;
+            tireFrontRCollider.forwardFriction = forwardRight;
+            tireFrontRCollider.sidewaysFriction = sidewaysRight;
         }
     }
 
@@ -195,16 +280,20 @@ public class Movement : MonoBehaviour
         tireBackRCollider.brakeTorque = 0;
         tireFrontLCollider.brakeTorque = 0;
         tireFrontRCollider.brakeTorque = 0;
-        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f)
+        if (tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f)
         {
-            WheelFrictionCurve forward = tireFrontLCollider.forwardFriction;
-            WheelFrictionCurve sideways = tireFrontLCollider.sidewaysFriction;
-            forward.stiffness = Mathf.Min(forward.stiffness + (3f * Time.deltaTime), 2.2f);
-            sideways.stiffness = Mathf.Max(sideways.stiffness - (3f * Time.deltaTime), 1.9f);
-            tireFrontLCollider.forwardFriction = forward;
-            tireFrontLCollider.sidewaysFriction = sideways;
-            tireFrontRCollider.forwardFriction = forward;
-            tireFrontRCollider.sidewaysFriction = sideways;
+            WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
+            WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
+            WheelFrictionCurve sidewaysLeft = tireFrontLCollider.sidewaysFriction;
+            WheelFrictionCurve sidewaysRight = tireFrontRCollider.sidewaysFriction;
+            forwardLeft.stiffness = Mathf.Min(forwardLeft.stiffness + (3f * Time.deltaTime), 2.2f);
+            forwardRight.stiffness = Mathf.Min(forwardRight.stiffness + (3f * Time.deltaTime), 2.2f);
+            sidewaysLeft.stiffness = Mathf.Max(sidewaysLeft.stiffness - (3f * Time.deltaTime), 1.9f);
+            sidewaysRight.stiffness = Mathf.Max(sidewaysRight.stiffness - (3f * Time.deltaTime), 1.9f);
+            tireFrontLCollider.forwardFriction = forwardLeft;
+            tireFrontLCollider.sidewaysFriction = sidewaysLeft;
+            tireFrontRCollider.forwardFriction = forwardRight;
+            tireFrontRCollider.sidewaysFriction = sidewaysRight;
         }
     }
 

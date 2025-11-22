@@ -10,6 +10,7 @@ TagManager:
   - Sector3
   - Track
   - Tarka
+  - Ground
   layers:
   - Default
   - TransparentFX

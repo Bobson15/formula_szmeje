@@ -55778,8 +55778,6 @@ MonoBehaviour:
   carRb: {fileID: 1804217004}
   speedText: {fileID: 1014721427}
   cameraTransform: {fileID: 963194228}
-  shakeIntensity: 0.05
-  shakeSpeed: 20
 --- !u!114 &1804217007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61173,7 +61171,7 @@ GameObject:
   - component: {fileID: 2021340891}
   m_Layer: 0
   m_Name: Monza
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
