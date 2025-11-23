@@ -42,6 +42,7 @@ public class LapTimer : MonoBehaviour
     private int lapCount = 0;
 
     private bool lapStarted = false;
+    private bool showLastLapTime = false;
 
     private void Start()
     {
@@ -54,7 +55,7 @@ public class LapTimer : MonoBehaviour
 
     private void Update()
     {
-        if (lapStarted)
+        if (lapStarted && !showLastLapTime)
         {
             currentLapTime = Time.time - lapStartTime;
             lapTimeText.text = "Lap: " + FormatTime(currentLapTime);
@@ -97,10 +98,11 @@ public class LapTimer : MonoBehaviour
                 bestLapTime = finalLapTime;
                 bestTimeText.text = "Best: " + FormatTime(bestLapTime);
             }
-
-            lapStarted = false; 
-
-            currentSector = 0;
+            Debug.Log("Start nowego okrążenia");
+            lapStartTime = now;
+            sectorStartTime = now;
+            currentSector = 1;
+            StartCoroutine(ResetUIAfterNewLap());
         }
     }
 
@@ -154,6 +156,19 @@ public class LapTimer : MonoBehaviour
         sector3Time = 0f;
 
         currentSector = 0;
+    }
+
+    private IEnumerator ResetUIAfterNewLap()
+    {
+        showLastLapTime = true;
+        yield return new WaitForSeconds(5);
+        showLastLapTime = false;
+
+        sektor1Image.color = kolorDomyslny;
+        sektor2Image.color = kolorDomyslny;
+        sektor3Image.color = kolorDomyslny;
+
+        lapTimeText.text = "Lap: 00:05.000";
     }
 
     private string FormatTime(float time)

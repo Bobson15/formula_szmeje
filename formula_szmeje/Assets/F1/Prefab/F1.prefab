@@ -676,6 +676,7 @@ GameObject:
   - component: {fileID: 9500000}
   - component: {fileID: 4950887451430257172}
   - component: {fileID: 8844655299315956018}
+  - component: {fileID: 2929998796151796839}
   m_Layer: 0
   m_Name: F1
   m_TagString: Untagged
@@ -703,10 +704,10 @@ Transform:
   - {fileID: 400004}
   - {fileID: 400002}
   - {fileID: 400000}
-  - {fileID: 8337517062331127808}
   - {fileID: 8234142779102077674}
   - {fileID: 3704298774855948240}
   - {fileID: 1288320772187281979}
+  - {fileID: 8337517062331127808}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -760,6 +761,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1, y: 0.1, z: 3.4}
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!114 &2929998796151796839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42321ae8029e62148afc59470a03786e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tireFrontL: {fileID: 400002}
+  tireFrontR: {fileID: 400000}
+  tireBackL: {fileID: 400006}
+  tireBackR: {fileID: 400004}
+  tireFrontLCollider: {fileID: 1172714299508047044}
+  tireFrontRCollider: {fileID: 7127495261415348790}
+  tireBackLCollider: {fileID: 8264458734545296547}
+  tireBackRCollider: {fileID: 1085321574605960994}
+  contr: {fileID: 400012}
 --- !u!1 &784967958777129169
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +812,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &8264458734545296547
 WheelCollider:
@@ -852,7 +874,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1085321574605960994
 WheelCollider:
@@ -914,7 +936,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1172714299508047044
 WheelCollider:
@@ -976,7 +998,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &7127495261415348790
 WheelCollider:

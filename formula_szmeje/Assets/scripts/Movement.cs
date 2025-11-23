@@ -28,64 +28,17 @@ public class Movement : MonoBehaviour
     public WheelCollider tireBackRCollider;
     public Transform contr;
     private Rigidbody rb;
-    private PlayerInput playerInput;
     private int gear = 1;
     private float changingGearTime = 0f;
-    private CarState carState = CarState.Stop;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
         rb.centerOfMass = new Vector3(0, -1, 0);
     }
 
     void FixedUpdate()
     {
-        Turn();
-        if (playerInput.actions["Throttle"].IsPressed())
-        {
-            if (carState != CarState.Backward)
-            {
-                if (changingGearTime <= 0f)
-                {
-                    Accelerate();
-                }
-                carState = CarState.Forward;
-            }
-            else
-            {
-                Break();
-                if(rb.velocity.magnitude < 0.1)
-                {
-                    carState = CarState.Stop;
-                }
-            }
-        }
-        if (playerInput.actions["Brake"].IsPressed())
-        {
-            if (carState == CarState.Forward)
-            {
-                Break();
-                if (rb.velocity.magnitude < 0.1)
-                {
-                    carState = CarState.Stop;
-                }
-            }
-            else
-            {
-                Reverse();
-                carState = CarState.Backward;
-            }
-        }
-        if(!playerInput.actions["Throttle"].IsPressed()&&!playerInput.actions["Brake"].IsPressed())
-        {
-            Decelerate();
-            if (rb.velocity.magnitude < 0.1)
-            {
-                carState = CarState.Stop;
-            }
-        }
         if (rb.velocity.magnitude * 3.6f > 100 + 35 * (gear - 1) && gear < 8)
         {
             gear++;
@@ -160,12 +113,12 @@ public class Movement : MonoBehaviour
             }
         }
     }
-    void Accelerate()
+    public void Accelerate(bool isBraking)
     {
         float targetPower = horsePower - (horsePower / 10) * (gear-1);
         tireBackLCollider.motorTorque = targetPower;
         tireBackRCollider.motorTorque = targetPower;
-        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !playerInput.actions["Brake"].IsPressed())
+        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !isBraking)
         {
             WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
             WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
@@ -181,9 +134,9 @@ public class Movement : MonoBehaviour
             tireFrontRCollider.sidewaysFriction = sidewaysRight;
         }
     }
-    void Break()
+    public void Break(bool isTurningLeft, bool isTurningRight, float TurnValue = 0)
     {
-        if ((playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed()) || (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed()) || Mathf.Abs(playerInput.actions["Turn"].ReadValue<Vector2>().x) > 0.1f)
+        if ((isTurningLeft && !isTurningRight) || (!isTurningLeft && isTurningRight) || Mathf.Abs(TurnValue) > 0.1f)
         {
             tireBackLCollider.brakeTorque = brakePower * 0.2f;
             tireBackRCollider.brakeTorque = brakePower * 0.2f;
@@ -251,11 +204,11 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void Reverse()
+    public void Reverse(bool isAccelerating)
     {
         tireBackLCollider.motorTorque = -horsePower/6;
         tireBackRCollider.motorTorque = -horsePower/6;
-        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !playerInput.actions["Throttle"].IsPressed())
+        if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !isAccelerating)
         {
             WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
             WheelFrictionCurve forwardRight = tireFrontRCollider.forwardFriction;
@@ -272,7 +225,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void Decelerate()
+    public void Decelerate()
     {
         tireBackLCollider.motorTorque = 0;
         tireBackRCollider.motorTorque = 0;
@@ -297,23 +250,23 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void Turn()
+    public void Turn(bool isTurningLeft, bool isTurningRight, float TurnValue = 0)
     {
         float turnAngle = 0;
         float stearingWheelTurnAngle = 0;
-        if (playerInput.actions["TurnLeft"].IsPressed() && !playerInput.actions["TurnRight"].IsPressed())
+        if (isTurningLeft && !isTurningRight)
         {
             turnAngle = -1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
             stearingWheelTurnAngle = -1;
         }
-        else if (!playerInput.actions["TurnLeft"].IsPressed() && playerInput.actions["TurnRight"].IsPressed())
+        else if (!isTurningLeft && isTurningRight)
         {
             turnAngle = 1 * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
             stearingWheelTurnAngle = 1;
         }
-        else if (playerInput.actions["Turn"].IsPressed()) {
-            turnAngle = playerInput.actions["Turn"].ReadValue<Vector2>().x * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
-            stearingWheelTurnAngle = playerInput.actions["Turn"].ReadValue<Vector2>().x;
+        else{
+            turnAngle = TurnValue * ((maxTurnAngle - minTurnAngle) * ((topSpeed - rb.velocity.magnitude * 3.6f) / topSpeed) + minTurnAngle);
+            stearingWheelTurnAngle = TurnValue;
         }
         tireFrontLCollider.steerAngle = turnAngle;
         tireFrontRCollider.steerAngle = turnAngle;
@@ -333,10 +286,8 @@ public class Movement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, -stearingWheelTurnAngle * 90f);
         contr.localRotation = Quaternion.Lerp(contr.localRotation, targetRotation, Time.deltaTime * (turnSpeed * 4));
     }
-    private enum CarState
+    public bool isChangingGear()
     {
-        Backward = -1,
-        Stop = 0,
-        Forward = 1
+        return changingGearTime > 0f;
     }
 }
