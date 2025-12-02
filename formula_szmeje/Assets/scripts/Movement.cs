@@ -73,6 +73,13 @@ public class Movement : MonoBehaviour
                 tireFrontLCollider.forwardFriction = forwardFrontLeft;
             }
         }
+        else
+        {
+            if (tireBackRCollider.GetGroundHit(out WheelHit hit1) && tireFrontRCollider.GetGroundHit(out WheelHit hit2))
+            {
+                rb.AddForce(new Vector3(0, 100 * -downforceCoefficient, 0), ForceMode.Force);
+            }
+        }
         WheelHit frontRightHit;
         if (tireFrontRCollider.GetGroundHit(out frontRightHit))
         {
@@ -84,6 +91,13 @@ public class Movement : MonoBehaviour
             {
                 forwardFrontRight.stiffness = 2.2f;
                 tireFrontRCollider.forwardFriction = forwardFrontRight;
+            }
+        }
+        else
+        {
+            if (tireBackLCollider.GetGroundHit(out WheelHit hit1) && tireFrontLCollider.GetGroundHit(out WheelHit hit2))
+            {
+                rb.AddForce(new Vector3(0, 100 * -downforceCoefficient, 0), ForceMode.Force);
             }
         }
         WheelHit backLeftHit;
@@ -99,6 +113,13 @@ public class Movement : MonoBehaviour
                 tireBackLCollider.forwardFriction = forwardBackLeft;
             }
         }
+        else
+        {
+            if (tireBackRCollider.GetGroundHit(out WheelHit hit1) && tireFrontRCollider.GetGroundHit(out WheelHit hit2))
+            {
+                rb.AddForce(new Vector3(0, 100 * -downforceCoefficient, 0), ForceMode.Force);
+            }
+        }
         WheelHit backRightHit;
         if (tireBackRCollider.GetGroundHit(out backRightHit))
         {
@@ -110,6 +131,13 @@ public class Movement : MonoBehaviour
             {
                 forwardBackRight.stiffness = 2.2f;
                 tireBackRCollider.forwardFriction = forwardBackRight;
+            }
+        }
+        else
+        {
+            if(tireBackLCollider.GetGroundHit(out WheelHit hit1) && tireFrontLCollider.GetGroundHit(out WheelHit hit2))
+            {
+                rb.AddForce(new Vector3(0, 100 * -downforceCoefficient, 0), ForceMode.Force);
             }
         }
     }
