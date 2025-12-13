@@ -11,6 +11,7 @@ TagManager:
   - Track
   - Tarka
   - Ground
+  - PlayerNameDeliver
   layers:
   - Default
   - TransparentFX

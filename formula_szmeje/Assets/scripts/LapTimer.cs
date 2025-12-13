@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class LapTimer : MonoBehaviour
 {
@@ -44,6 +45,10 @@ public class LapTimer : MonoBehaviour
     private bool lapStarted = false;
     private bool showLastLapTime = false;
 
+    private string playerName = "";
+    private string lapTimesFilePath;
+    private PlayerNameDeliverSerializerList lapTimes = new PlayerNameDeliverSerializerList();
+
     private void Start()
     {
         sektor1Image = sektor1Box.GetComponent<Image>();
@@ -51,6 +56,27 @@ public class LapTimer : MonoBehaviour
         sektor3Image = sektor3Box.GetComponent<Image>();
 
         ResetUI();
+        lapTimesFilePath = Application.persistentDataPath + "/lapTimes.json";
+        if (File.Exists(lapTimesFilePath))
+        {
+            string json = File.ReadAllText(lapTimesFilePath);
+            lapTimes = JsonUtility.FromJson<PlayerNameDeliverSerializerList>(json);
+        }
+        GameObject playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
+        if (playerNameDeliverObj != null) { 
+            playerName = playerNameDeliverObj.GetComponent<PlayerNameDeliver>().playerName;
+            for (int i = 0; i < lapTimes.playersList.Count; i++) {
+                if (lapTimes.playersList[i].playerName == playerName) {
+                    bestLapTime = lapTimes.playersList[i].bestLapTime;
+                    bestSector1 = lapTimes.playersList[i].bestFirstSectorTime;
+                    bestSector2 = lapTimes.playersList[i].bestSecondSectorTime;
+                    bestSector3 = lapTimes.playersList[i].bestThirdSectorTime;
+                    bestTimeText.text = "Best: " + FormatTime(bestLapTime);
+                    break;
+                }
+            }
+            
+        }
     }
 
     private void Update()
@@ -97,6 +123,28 @@ public class LapTimer : MonoBehaviour
             {
                 bestLapTime = finalLapTime;
                 bestTimeText.text = "Best: " + FormatTime(bestLapTime);
+                if (playerName != "")
+                {
+                    bool playerFound = false;
+                    for (int i = 0; i < lapTimes.playersList.Count; i++)
+                    {
+                        if (lapTimes.playersList[i].playerName == playerName)
+                        {
+                            lapTimes.playersList[i].bestLapTime = bestLapTime;
+                            lapTimes.playersList[i].bestFirstSectorTime = bestSector1;
+                            lapTimes.playersList[i].bestSecondSectorTime = bestSector2;
+                            lapTimes.playersList[i].bestThirdSectorTime = bestSector3;
+                            playerFound = true;
+                            break;
+                        }
+                    }
+                    if (!playerFound)
+                    {
+                        lapTimes.playersList.Add(new PlayerNameDeliverSerializer(playerName, bestLapTime, bestSector1, bestSector2, bestSector3));
+                    }
+                    string json = JsonUtility.ToJson(lapTimes, true);
+                    File.WriteAllText(lapTimesFilePath, json);
+                }
             }
             Debug.Log("Start nowego okrążenia");
             lapStartTime = now;
