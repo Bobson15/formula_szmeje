@@ -12,6 +12,7 @@ TagManager:
   - Tarka
   - Ground
   - PlayerNameDeliver
+  - AiGate
   layers:
   - Default
   - TransparentFX

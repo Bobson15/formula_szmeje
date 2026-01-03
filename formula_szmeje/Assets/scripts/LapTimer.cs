@@ -48,6 +48,7 @@ public class LapTimer : MonoBehaviour
     private string playerName = "";
     private string lapTimesFilePath;
     private PlayerNameDeliverSerializerList lapTimes = new PlayerNameDeliverSerializerList();
+    private GameObject playerNameDeliverObj;
 
     private void Start()
     {
@@ -62,8 +63,8 @@ public class LapTimer : MonoBehaviour
             string json = File.ReadAllText(lapTimesFilePath);
             lapTimes = JsonUtility.FromJson<PlayerNameDeliverSerializerList>(json);
         }
-        GameObject playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
-        if (playerNameDeliverObj != null) { 
+        playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
+        if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.HotLap) { 
             playerName = playerNameDeliverObj.GetComponent<PlayerNameDeliver>().playerName;
             for (int i = 0; i < lapTimes.playersList.Count; i++) {
                 if (lapTimes.playersList[i].playerName == playerName) {
@@ -123,7 +124,7 @@ public class LapTimer : MonoBehaviour
             {
                 bestLapTime = finalLapTime;
                 bestTimeText.text = "Best: " + FormatTime(bestLapTime);
-                if (playerName != "")
+                if (playerName != "" && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode==Gamemode.HotLap)
                 {
                     bool playerFound = false;
                     for (int i = 0; i < lapTimes.playersList.Count; i++)

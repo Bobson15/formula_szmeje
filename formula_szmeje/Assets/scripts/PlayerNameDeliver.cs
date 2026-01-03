@@ -7,6 +7,7 @@ public class PlayerNameDeliver : MonoBehaviour
 {
     public static PlayerNameDeliver Instance;
     public string playerName;
+    public Gamemode gamemode = Gamemode.HotLap;
     private void Awake()
     {
         if (Instance == null)
@@ -44,4 +45,10 @@ public class PlayerNameDeliverSerializer
 public class PlayerNameDeliverSerializerList
 {
     public List<PlayerNameDeliverSerializer> playersList = new List<PlayerNameDeliverSerializer>();
+}
+
+public enum Gamemode
+{
+    HotLap = 0,
+    Race = 1
 }

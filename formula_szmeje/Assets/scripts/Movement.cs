@@ -145,6 +145,10 @@ public class Movement : MonoBehaviour
         float targetPower = horsePower - (horsePower / 10) * (gear-1);
         tireBackLCollider.motorTorque = targetPower;
         tireBackRCollider.motorTorque = targetPower;
+        tireBackLCollider.brakeTorque = 0;
+        tireBackRCollider.brakeTorque = 0;
+        tireFrontLCollider.brakeTorque = 0;
+        tireFrontRCollider.brakeTorque = 0;
         if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !isBraking)
         {
             WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;
