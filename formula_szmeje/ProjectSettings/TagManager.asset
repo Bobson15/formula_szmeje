@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - PlayerNameDeliver
   - AiGate
+  - bariers
   layers:
   - Default
   - TransparentFX
