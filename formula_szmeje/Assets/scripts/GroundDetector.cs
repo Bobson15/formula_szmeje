@@ -1,30 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GroundDetector : MonoBehaviour
 {
     private bool groundDetected = false;
+    private int trackDetections = 0;
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.transform.root.CompareTag("Ground"))
+        try
         {
-            groundDetected = true;
+            if (collider.transform.root.CompareTag("Ground"))
+            {
+                groundDetected = true;
+            }
+            else if (collider.transform.parent.CompareTag("Track"))
+            {
+                trackDetections++;
+            }
+        }
+        catch
+        {
+
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.transform.root.CompareTag("Ground"))
+        try
         {
-            groundDetected = false;
+            if (collider.transform.root.CompareTag("Ground"))
+            {
+                groundDetected = false;
+            }
+            else if (collider.transform.parent.CompareTag("Track"))
+            {
+                trackDetections--;
+            }
+        }
+        catch
+        {
+
         }
     }
     public bool isGroundDetected()
     {
-        return groundDetected;
+        return groundDetected && trackDetections == 0;
     }
     public void info()
     {
-        Debug.Log(gameObject.name + " " + groundDetected);
+        Debug.Log(gameObject.name + " " + groundDetected + " " + trackDetections);
     }
 }
