@@ -9,38 +9,38 @@ public class GroundDetector : MonoBehaviour
     private int trackDetections = 0;
     private void OnTriggerEnter(Collider collider)
     {
-        try
+        if (collider == null)
         {
-            if (collider.transform.root.CompareTag("Ground"))
-            {
-                groundDetected = true;
-            }
-            else if (collider.transform.parent.CompareTag("Track"))
-            {
-                trackDetections++;
-            }
+            return;
         }
-        catch
+        Transform root = collider.transform.root;
+        if (root != null && root.CompareTag("Ground"))
         {
-
+            groundDetected = true;
+            return;
+        }
+        Transform parent = collider.transform.parent;
+        if (parent != null && parent.CompareTag("Track"))
+        {
+            trackDetections++;
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        try
+        if (collider == null)
         {
-            if (collider.transform.root.CompareTag("Ground"))
-            {
-                groundDetected = false;
-            }
-            else if (collider.transform.parent.CompareTag("Track"))
-            {
-                trackDetections--;
-            }
+            return;
         }
-        catch
+        Transform root = collider.transform.root;
+        if (root != null && root.CompareTag("Ground"))
         {
-
+            groundDetected = false;
+            return;
+        }
+        Transform parent = collider.transform.parent;
+        if (parent != null && parent.CompareTag("Track"))
+        {
+            trackDetections--;
         }
     }
     public bool isGroundDetected()

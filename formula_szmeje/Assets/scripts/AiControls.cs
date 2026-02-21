@@ -28,48 +28,39 @@ public class AiControls : MonoBehaviour
         rightSideDetector = transform.Find("side_right_detector").GetComponent<SideDetector>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        leftSideDetector.info();
-        rightSideDetector.info();
-        float gateDifference = Mathf.Abs(currentAiGate.nextGate.getRotation() - transform.eulerAngles.y);
-        if(avoiding > 0f)
+        float angle = Mathf.DeltaAngle(transform.eulerAngles.y, currentAiGate.nextGate.getRotation());
+        float gateDifference = Mathf.Abs(angle);
+        bool leftObstacleDetected = leftObstacleDetector.isObstacleDetected();
+        bool rightObstacleDetected = rightObstacleDetector.isObstacleDetected();
+        bool leftGroundDetected = leftGroundDetector.isGroundDetected();
+        bool rightGroundDetected = rightGroundDetector.isGroundDetected();
+        bool onLeftSide = leftSideDetector.isLeftDetected();
+        bool onRightSide = rightSideDetector.isRightDetected();
+        if (avoiding > 0f)
         {
-            avoiding -= Time.fixedDeltaTime;
+            avoiding -= Time.deltaTime;
         }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !leftSideDetector.isLeftDetected() && !leftObstacleDetector.isObstacleDetected() && !leftGroundDetector.isGroundDetected())
+            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected)
             {
                 turn = -0.025f;
             }
-            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !rightSideDetector.isRightDetected() && !rightObstacleDetector.isObstacleDetected() && !rightGroundDetector.isGroundDetected())
+            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected)
             {
                 turn = 0.025f;
             }
             else if (gateDifference > 1)
             {
-                if (transform.eulerAngles.y < 180)
+                if (angle > 0)
                 {
-                    if (currentAiGate.nextGate.getRotation() > transform.eulerAngles.y && currentAiGate.nextGate.getRotation() <= transform.eulerAngles.y + 180)
-                    {
-                        turn = 1f;
-                    }
-                    else
-                    {
-                        turn = -1f;
-                    }
+                    turn = 1f;
                 }
                 else
                 {
-                    if (currentAiGate.nextGate.getRotation() < transform.eulerAngles.y && currentAiGate.nextGate.getRotation() >= transform.eulerAngles.y - 180)
-                    {
-                        turn = -1f;
-                    }
-                    else
-                    {
-                        turn = 1f;
-                    }
+                    turn = -1f;
                 }
             }
             else
@@ -78,11 +69,11 @@ public class AiControls : MonoBehaviour
                 readyForNextGate = true;
             }
         }
-        if ((leftObstacleDetector.isObstacleDetected() || leftGroundDetector.isGroundDetected()) && !(rightObstacleDetector.isObstacleDetected() || rightGroundDetector.isGroundDetected()))
+        if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected || rightGroundDetected))
         {
             if (!readyForNextGate && turn > 0f)
             {
-                turn /=-10;
+                turn /= -10;
             }
             else if (readyForNextGate)
             {
@@ -90,7 +81,7 @@ public class AiControls : MonoBehaviour
                 avoiding = 0.25f;
             }
         }
-        else if ((rightObstacleDetector.isObstacleDetected() || rightGroundDetector.isGroundDetected()) && !(leftObstacleDetector.isObstacleDetected() || leftGroundDetector.isGroundDetected()))
+        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected || leftGroundDetected))
         {
             if (!readyForNextGate && turn < 0f)
             {
@@ -107,15 +98,19 @@ public class AiControls : MonoBehaviour
             turn = 0f;
             readyForNextGate = false;
         }
-            aiMovement.Turn(false, false, turn);
-        if (rb.velocity.magnitude * 3.6f < currentAiGate.maxSpeed)
+    }
+    void FixedUpdate() 
+    {
+        float speedKmh = rb.velocity.magnitude * 3.6f;
+        aiMovement.Turn(false, false, turn);
+        if (speedKmh < currentAiGate.maxSpeed)
         {
             if (!aiMovement.isChangingGear())
             {
                 aiMovement.Accelerate(false);
             }
         }
-        else if(rb.velocity.magnitude * 3.6f > currentAiGate.maxSpeed+2)
+        else if(speedKmh > currentAiGate.maxSpeed+2)
         {
             aiMovement.Break(false, false, turn);
         }

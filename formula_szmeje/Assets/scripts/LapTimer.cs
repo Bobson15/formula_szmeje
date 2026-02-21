@@ -30,10 +30,8 @@ public class LapTimer : MonoBehaviour
     private float lapStartTime;
     private float sectorStartTime;
 
-    private float sector1Time, sector2Time, sector3Time;
-    private float bestSector1 = Mathf.Infinity;
-    private float bestSector2 = Mathf.Infinity;
-    private float bestSector3 = Mathf.Infinity;
+    private float sector1Time = 0f, sector2Time = 0f, sector3Time = 0f;
+    private float bestSector1 = Mathf.Infinity, bestSector2 = Mathf.Infinity, bestSector3 = Mathf.Infinity;
 
     private float currentLapTime;
     private float lastLapTime;
@@ -43,7 +41,6 @@ public class LapTimer : MonoBehaviour
     private int lapCount = 0;
 
     private bool lapStarted = false;
-    private bool showLastLapTime = false;
 
     private string playerName = "";
     private string lapTimesFilePath;
@@ -55,8 +52,11 @@ public class LapTimer : MonoBehaviour
         sektor1Image = sektor1Box.GetComponent<Image>();
         sektor2Image = sektor2Box.GetComponent<Image>();
         sektor3Image = sektor3Box.GetComponent<Image>();
+        lapTimeText.text = "Lap: 00:00.000";
+        sektor1Image.color = kolorDomyslny;
+        sektor2Image.color = kolorDomyslny;
+        sektor3Image.color = kolorDomyslny;
 
-        ResetUI();
         lapTimesFilePath = Application.persistentDataPath + "/lapTimes.json";
         if (File.Exists(lapTimesFilePath))
         {
@@ -82,7 +82,7 @@ public class LapTimer : MonoBehaviour
 
     private void Update()
     {
-        if (lapStarted && !showLastLapTime)
+        if (lapStarted)
         {
             currentLapTime = Time.time - lapStartTime;
             lapTimeText.text = "Lap: " + FormatTime(currentLapTime);
@@ -105,8 +105,6 @@ public class LapTimer : MonoBehaviour
             sektor3Image.color = kolorDomyslny;
 
             lapTimeText.text = "Lap: 00:00.000";
-
-            Debug.Log("Start nowego okrążenia");
             return;
         }
 
@@ -118,6 +116,7 @@ public class LapTimer : MonoBehaviour
             float finalLapTime = now - lapStartTime;
             lastLapTime = finalLapTime;
 
+            lapTimeText.text = "Lap: " + FormatTime(finalLapTime);
             prevTimeText.text = "Previous: " + FormatTime(finalLapTime);
 
             if (finalLapTime < bestLapTime)
@@ -147,11 +146,13 @@ public class LapTimer : MonoBehaviour
                     File.WriteAllText(lapTimesFilePath, json);
                 }
             }
-            Debug.Log("Start nowego okrążenia");
             lapStartTime = now;
             sectorStartTime = now;
             currentSector = 1;
-            StartCoroutine(ResetUIAfterNewLap());
+            sektor1Image.color = kolorDomyslny;
+            sektor2Image.color = kolorDomyslny;
+            sektor3Image.color = kolorDomyslny;
+            lapTimeText.text = "Lap: 00:00.000";
         }
     }
 
@@ -191,33 +192,6 @@ public class LapTimer : MonoBehaviour
         {
             img.color = kolorZolty;
         }
-    }
-
-    private void ResetUI()
-    {
-        lapTimeText.text = "Lap: 00:00.000";
-        sektor1Image.color = kolorDomyslny;
-        sektor2Image.color = kolorDomyslny;
-        sektor3Image.color = kolorDomyslny;
-
-        sector1Time = 0f;
-        sector2Time = 0f;
-        sector3Time = 0f;
-
-        currentSector = 0;
-    }
-
-    private IEnumerator ResetUIAfterNewLap()
-    {
-        showLastLapTime = true;
-        yield return new WaitForSeconds(5);
-        showLastLapTime = false;
-
-        sektor1Image.color = kolorDomyslny;
-        sektor2Image.color = kolorDomyslny;
-        sektor3Image.color = kolorDomyslny;
-
-        lapTimeText.text = "Lap: 00:05.000";
     }
 
     private string FormatTime(float time)

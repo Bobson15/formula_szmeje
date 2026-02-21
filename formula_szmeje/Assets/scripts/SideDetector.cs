@@ -8,22 +8,24 @@ public class SideDetector : MonoBehaviour
     private int rightDetections = 0;
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.transform.name.StartsWith("SCutL"))
+        string colliderName = collider.transform.name;
+        if (colliderName.StartsWith("SCutL"))
         {
             leftDetections++;
         }
-        else if (collider.transform.name.StartsWith("SCutR"))
+        else if (colliderName.StartsWith("SCutR"))
         {
             rightDetections++;
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.transform.name.StartsWith("SCutL"))
+        string colliderName = collider.transform.name;
+        if (colliderName.StartsWith("SCutL"))
         {
             leftDetections--;
         }
-        else if (collider.transform.name.StartsWith("SCutR"))
+        else if (colliderName.StartsWith("SCutR"))
         {
             rightDetections--;
         }
