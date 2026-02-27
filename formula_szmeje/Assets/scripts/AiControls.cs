@@ -12,6 +12,7 @@ public class AiControls : MonoBehaviour
     private ObstacleDetector leftObstacleDetector, rightObstacleDetector;
     private GroundDetector leftGroundDetector, rightGroundDetector;
     private SideDetector leftSideDetector, rightSideDetector;
+    private CarDetector frontCarDetector, leftCarDetector, rightCarDetector, frontLeftCarDetector, frontRightCarDetector;
     private float turn = 0f;
     private bool readyForNextGate = false;
     private float avoiding = 0f;
@@ -26,10 +27,20 @@ public class AiControls : MonoBehaviour
         rightGroundDetector = transform.Find("ground_right_detector").GetComponent<GroundDetector>();
         leftSideDetector = transform.Find("side_left_detector").GetComponent<SideDetector>();
         rightSideDetector = transform.Find("side_right_detector").GetComponent<SideDetector>();
+        frontCarDetector = transform.Find("car_front_detector").GetComponent<CarDetector>();
+        leftCarDetector = transform.Find("car_left_detector").GetComponent<CarDetector>();
+        rightCarDetector = transform.Find("car_right_detector").GetComponent<CarDetector>();
+        frontLeftCarDetector = transform.Find("car_front_left_detector").GetComponent<CarDetector>();
+        frontRightCarDetector = transform.Find("car_front_right_detector").GetComponent<CarDetector>();
     }
 
     void Update()
     {
+        frontCarDetector.getInfo();
+        leftCarDetector.getInfo();
+        rightCarDetector.getInfo();
+        frontLeftCarDetector.getInfo();
+        frontRightCarDetector.getInfo();
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, currentAiGate.nextGate.getRotation());
         float gateDifference = Mathf.Abs(angle);
         bool leftObstacleDetected = leftObstacleDetector.isObstacleDetected();
@@ -44,21 +55,21 @@ public class AiControls : MonoBehaviour
         }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected)
+            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected && !leftCarDetector.isCarDetected())
             {
                 turn = -0.025f;
             }
-            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected)
+            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected && !rightCarDetector.isCarDetected())
             {
                 turn = 0.025f;
             }
             else if (gateDifference > 1)
             {
-                if (angle > 0)
+                if (angle > 0 && (!rightCarDetector.isCarDetected() || leftObstacleDetected || leftGroundDetected))
                 {
                     turn = 1f;
                 }
-                else
+                else if(!leftCarDetector.isCarDetected() || rightObstacleDetected || rightGroundDetected)
                 {
                     turn = -1f;
                 }
