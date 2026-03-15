@@ -5,50 +5,39 @@ using UnityEngine;
 
 public class GroundDetector : MonoBehaviour
 {
+    public LayerMask trackLayer;
+    public float rayLength = 5f;
+    private Terrain terrain;
     private bool groundDetected = false;
-    private int trackDetections = 0;
-    private void OnTriggerEnter(Collider collider)
+
+    void Start()
     {
-        if (collider == null)
-        {
-            return;
-        }
-        Transform root = collider.transform.root;
-        if (root != null && root.CompareTag("Ground"))
-        {
-            groundDetected = true;
-            return;
-        }
-        Transform parent = collider.transform.parent;
-        if (parent != null && parent.CompareTag("Track"))
-        {
-            trackDetections++;
-        }
+        terrain = GameObject.Find("Monza").GetComponent<Terrain>(); ;
     }
-    private void OnTriggerExit(Collider collider)
+
+    void FixedUpdate()
     {
-        if (collider == null)
+        groundDetected = true;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rayLength, trackLayer))
         {
-            return;
+            float terrainHeight = terrain.SampleHeight(hit.point);
+            if (hit.point.y > terrainHeight)
+            {
+                groundDetected = false;
+            }
         }
-        Transform root = collider.transform.root;
-        if (root != null && root.CompareTag("Ground"))
-        {
-            groundDetected = false;
-            return;
-        }
-        Transform parent = collider.transform.parent;
-        if (parent != null && parent.CompareTag("Track"))
-        {
-            trackDetections--;
-        }
+
+        Debug.DrawRay(transform.position, Vector3.down * rayLength, groundDetected ? Color.green : Color.red);
     }
+
     public bool isGroundDetected()
     {
-        return groundDetected && trackDetections == 0;
+        return groundDetected;
     }
     public void info()
+
     {
-        Debug.Log(gameObject.name + " " + groundDetected + " " + trackDetections);
+        Debug.Log(gameObject.name + " " + groundDetected);
     }
 }

@@ -30,6 +30,8 @@ public class Movement : MonoBehaviour
     private int gear = 1;
     private float changingGearTime = 0f;
     private float speedKmh = 0f;
+    private float leftOversteer;
+    private float rightOversteer;
 
     void Start()
     {
@@ -69,6 +71,8 @@ public class Movement : MonoBehaviour
         bool frontRGroundHit = tireFrontRCollider.GetGroundHit(out frontRightHit);
         bool backLGroundHit = tireBackLCollider.GetGroundHit(out backLeftHit);
         bool backRGroundHit = tireBackRCollider.GetGroundHit(out backRightHit);
+        leftOversteer = backLeftHit.sidewaysSlip;
+        rightOversteer = backRightHit.sidewaysSlip;
         if (frontLGroundHit)
         {
             if (frontLeftHit.collider.gameObject.CompareTag("Ground"))
@@ -326,5 +330,9 @@ public class Movement : MonoBehaviour
     public bool isChangingGear()
     {
         return changingGearTime > 0f;
+    }
+    public float getOversteer()
+    {
+        return (leftOversteer + rightOversteer) / 2;
     }
 }

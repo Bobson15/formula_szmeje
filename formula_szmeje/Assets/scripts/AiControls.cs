@@ -12,8 +12,9 @@ public class AiControls : MonoBehaviour
     private ObstacleDetector leftObstacleDetector, rightObstacleDetector;
     private GroundDetector leftGroundDetector, rightGroundDetector;
     private SideDetector leftSideDetector, rightSideDetector;
-    private CarDetector frontCarDetector, leftCarDetector, rightCarDetector, frontLeftCarDetector, frontRightCarDetector;
+    private CarDetector frontCarDetector, leftCarDetector, rightCarDetector, leftTurnCarDetector, rightTurnCarDetector;
     private float turn = 0f;
+    private float baseGateDifference = 0f;
     private bool readyForNextGate = false;
     private float avoiding = 0f;
     void Start()
@@ -30,17 +31,12 @@ public class AiControls : MonoBehaviour
         frontCarDetector = transform.Find("car_front_detector").GetComponent<CarDetector>();
         leftCarDetector = transform.Find("car_left_detector").GetComponent<CarDetector>();
         rightCarDetector = transform.Find("car_right_detector").GetComponent<CarDetector>();
-        frontLeftCarDetector = transform.Find("car_front_left_detector").GetComponent<CarDetector>();
-        frontRightCarDetector = transform.Find("car_front_right_detector").GetComponent<CarDetector>();
+        leftTurnCarDetector = transform.Find("car_left_turn_detector").GetComponent<CarDetector>();
+        rightTurnCarDetector = transform.Find("car_right_turn_detector").GetComponent<CarDetector>();
     }
 
     void Update()
     {
-        frontCarDetector.getInfo();
-        leftCarDetector.getInfo();
-        rightCarDetector.getInfo();
-        frontLeftCarDetector.getInfo();
-        frontRightCarDetector.getInfo();
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, currentAiGate.nextGate.getRotation());
         float gateDifference = Mathf.Abs(angle);
         bool leftObstacleDetected = leftObstacleDetector.isObstacleDetected();
@@ -49,29 +45,49 @@ public class AiControls : MonoBehaviour
         bool rightGroundDetected = rightGroundDetector.isGroundDetected();
         bool onLeftSide = leftSideDetector.isLeftDetected();
         bool onRightSide = rightSideDetector.isRightDetected();
+        bool frontCarDetected = frontCarDetector.isCarDetected();
+        bool leftCarDetected = leftCarDetector.isCarDetected();
+        bool rightCarDetected = rightCarDetector.isCarDetected();
+        bool leftTurnCarDetected = leftTurnCarDetector.isCarDetected();
+        bool rightTurnCarDetected = rightTurnCarDetector.isCarDetected();
+        float oversteer = aiMovement.getOversteer();
         if (avoiding > 0f)
         {
             avoiding -= Time.deltaTime;
         }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected && !leftCarDetector.isCarDetected())
+            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected && !leftCarDetected)
             {
                 turn = -0.025f;
             }
-            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected && !rightCarDetector.isCarDetected())
+            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected && !rightCarDetected)
             {
                 turn = 0.025f;
             }
             else if (gateDifference > 1)
             {
-                if (angle > 0 && (!rightCarDetector.isCarDetected() || leftObstacleDetected || leftGroundDetected))
+                if (baseGateDifference <= 5)
                 {
-                    turn = 1f;
+                    if (angle > 0 && (!rightCarDetected || leftObstacleDetected || leftGroundDetected))
+                    {
+                        turn = 1f;
+                    }
+                    else if (angle < 0 && (!leftCarDetected || rightObstacleDetected || rightGroundDetected))
+                    {
+                        turn = -1f;
+                    }
                 }
-                else if(!leftCarDetector.isCarDetected() || rightObstacleDetected || rightGroundDetected)
+                else
                 {
-                    turn = -1f;
+                    if (angle > 0 && (!rightTurnCarDetected || leftObstacleDetected || leftGroundDetected))
+                    {
+                        turn = 1f;
+                    }
+                    else if (angle < 0 && (!leftTurnCarDetected || rightObstacleDetected || rightGroundDetected))
+                    {
+                        turn = -1f;
+                    }
                 }
             }
             else
@@ -80,29 +96,25 @@ public class AiControls : MonoBehaviour
                 readyForNextGate = true;
             }
         }
-        if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected || rightGroundDetected))
+        if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected || rightGroundDetected) && turn <= 0f)
         {
-            if (!readyForNextGate && turn > 0f)
+            turn = 0.25f;
+            if (readyForNextGate)
             {
-                turn /= -10;
-            }
-            else if (readyForNextGate)
-            {
-                turn = 0.25f;
                 avoiding = 0.25f;
             }
         }
-        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected || leftGroundDetected))
+        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected || leftGroundDetected) && turn >= 0f)
         {
-            if (!readyForNextGate && turn < 0f)
+            turn = -0.25f;
+            if (readyForNextGate)
             {
-                turn /= -10;
-            }
-            else if (readyForNextGate)
-            {
-                turn = -0.25f;
                 avoiding = 0.25f;
             }
+        }
+        else if (oversteer > 0.2f && ((angle > 0 && oversteer < 0 && !rightTurnCarDetected) || (angle < 0 && oversteer > 0 && !leftTurnCarDetected)))
+        {
+            turn = oversteer;
         }
         else if (gateDifference > 1 && readyForNextGate)
         {
@@ -114,6 +126,9 @@ public class AiControls : MonoBehaviour
     {
         float speedKmh = rb.velocity.magnitude * 3.6f;
         aiMovement.Turn(false, false, turn);
+
+        bool needToBrake = (frontCarDetector.isCarDetected() && frontCarDetector.getDetectedCarSpeed() < speedKmh);
+
         if (speedKmh < currentAiGate.maxSpeed)
         {
             if (!aiMovement.isChangingGear())
@@ -136,7 +151,16 @@ public class AiControls : MonoBehaviour
         {
             currentAiGate = collider.gameObject.GetComponent<AiGate>();
             readyForNextGate = false;
+            baseGateDifference = Mathf.Abs(Mathf.DeltaAngle(currentAiGate.getRotation(), currentAiGate.nextGate.getRotation()));
             avoiding = 0f;
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("bariers") || collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player"))
+        {
+            readyForNextGate = false;
+            Debug.Log("collision");
         }
     }
 }
