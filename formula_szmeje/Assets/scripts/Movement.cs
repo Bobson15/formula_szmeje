@@ -247,8 +247,8 @@ public class Movement : MonoBehaviour
 
     public void Reverse(bool isAccelerating)
     {
-        tireBackLCollider.motorTorque = -horsePower/6;
-        tireBackRCollider.motorTorque = -horsePower/6;
+        tireBackLCollider.motorTorque = -horsePower/5;
+        tireBackRCollider.motorTorque = -horsePower/5;
         if ((tireFrontLCollider.sidewaysFriction.stiffness > 1.9f || tireFrontRCollider.sidewaysFriction.stiffness > 1.9f) && !isAccelerating)
         {
             WheelFrictionCurve forwardLeft = tireFrontLCollider.forwardFriction;

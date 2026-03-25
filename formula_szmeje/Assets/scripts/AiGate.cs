@@ -8,14 +8,13 @@ public class AiGate : MonoBehaviour
     public AiGate nextGate;
     public float maxSpeed;
     public Side side;
-    private Transform transform;
-    private void Start()
-    {
-        transform = GetComponent<Transform>();
-    }
     public float getRotation()
     {
         return transform.eulerAngles.y;
+    }
+    public Vector3 getPossition()
+    {
+        return transform.position;
     }
 
     public enum Side

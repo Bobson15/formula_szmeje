@@ -5,27 +5,32 @@ using UnityEngine;
 public class CarDetector : MonoBehaviour
 {
     private int detectedCars = 0;
-    private List<Rigidbody> detectedCarsList = new List<Rigidbody>() { };
+    private Dictionary<Rigidbody, int> detectedCarsDict = new Dictionary<Rigidbody, int>();
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("AI") || collider.CompareTag("Player"))
+        if (collider.CompareTag("Car"))
         {
-            detectedCars++;
-            detectedCarsList.Add(collider.GetComponent<Rigidbody>());
+            Rigidbody rb = collider.GetComponentInParent<Rigidbody>();
+            if (detectedCarsDict.ContainsKey(rb))
+            {
+                detectedCarsDict[rb]++;
+            }
+            else
+            {
+                detectedCars++;
+                detectedCarsDict.Add(collider.GetComponentInParent<Rigidbody>(), 1);
+            }
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.CompareTag("AI") || collider.CompareTag("Player"))
+        if (collider.CompareTag("Car") && detectedCarsDict.ContainsKey(collider.GetComponentInParent<Rigidbody>()))
         {
-            detectedCars--;
-            foreach(Rigidbody rb  in detectedCarsList)
-            {
-                if(rb == collider.GetComponent<Rigidbody>())
-                {
-                    detectedCarsList.Remove(rb);
-                    break;
-                }
+            Rigidbody rb = collider.GetComponentInParent<Rigidbody>();
+            detectedCarsDict[rb]--;
+            if (detectedCarsDict[rb] == 0) { 
+                detectedCarsDict.Remove(rb);
+                detectedCars--;
             }
         }
     }
@@ -38,9 +43,11 @@ public class CarDetector : MonoBehaviour
         float speed = 0;
         if (detectedCars > 0)
         {
-            speed = detectedCarsList[0].velocity.magnitude * 3.6f;
-            for (int i = 1; i < detectedCarsList.Count; i++) {
-                speed = Mathf.Min(speed, detectedCarsList[i].velocity.magnitude * 3.6f);
+            var car = detectedCarsDict.GetEnumerator();
+            car.MoveNext();
+            speed = car.Current.Key.velocity.magnitude * 3.6f;
+            while(car.MoveNext()) {
+                speed = Mathf.Min(speed, car.Current.Key.velocity.magnitude * 3.6f);
             }
         }
         return speed;

@@ -15,6 +15,7 @@ TagManager:
   - AiGate
   - bariers
   - AI
+  - Car
   layers:
   - Default
   - TransparentFX

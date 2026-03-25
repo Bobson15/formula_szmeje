@@ -16,7 +16,7 @@ public class AiControls : MonoBehaviour
     private float turn = 0f;
     private float baseGateDifference = 0f;
     private bool readyForNextGate = false;
-    private float avoiding = 0f;
+    private float avoiding = 0f, reversing = 0f;
     void Start()
     {
         aiMovement = GetComponent<Movement>();
@@ -55,13 +55,17 @@ public class AiControls : MonoBehaviour
         {
             avoiding -= Time.deltaTime;
         }
+        if(reversing > 0f)
+        {
+            reversing -= Time.deltaTime;
+        }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected && !leftCarDetected)
+            if (gateDifference < 5 && currentAiGate.side == AiGate.Side.left && !onLeftSide && !leftObstacleDetected && !leftGroundDetected && !leftCarDetected && reversing <= 0)
             {
                 turn = -0.025f;
             }
-            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected && !rightCarDetected)
+            else if (gateDifference < 5 && currentAiGate.side == AiGate.Side.right && !onRightSide && !rightObstacleDetected && !rightGroundDetected && !rightCarDetected && reversing <= 0)
             {
                 turn = 0.025f;
             }
@@ -96,7 +100,30 @@ public class AiControls : MonoBehaviour
                 readyForNextGate = true;
             }
         }
-        if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected || rightGroundDetected) && turn <= 0f)
+        if ((leftObstacleDetector.isObstacleDetected() && rightObstacleDetector.isObstacleDetected()) || reversing > 0f)
+        {
+            turn = -turn;
+        }
+        else if (leftGroundDetected && rightGroundDetected)
+        {
+            Vector3 gate = currentAiGate.nextGate.getPossition(), left = leftGroundDetector.getPossition(), right = rightGroundDetector.getPossition();
+            gate.x = 0;
+            left.x = 0;
+            right.x = 0;
+            float distanceRight = Vector3.Distance(gate, right);
+            float distanceLeft = Vector3.Distance(gate, left);
+            if (Mathf.Abs(distanceRight-distanceLeft)>2) {
+                if (distanceRight > distanceLeft)
+                {
+                    turn = -1f;
+                }
+                else
+                {
+                    turn = 1f;
+                }
+            }
+        }
+        else if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected) && turn <= 0f)
         {
             turn = 0.25f;
             if (readyForNextGate)
@@ -104,7 +131,7 @@ public class AiControls : MonoBehaviour
                 avoiding = 0.25f;
             }
         }
-        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected || leftGroundDetected) && turn >= 0f)
+        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected) && turn >= 0f)
         {
             turn = -0.25f;
             if (readyForNextGate)
@@ -125,18 +152,24 @@ public class AiControls : MonoBehaviour
     void FixedUpdate() 
     {
         float speedKmh = rb.velocity.magnitude * 3.6f;
-        aiMovement.Turn(false, false, turn);
-
         bool needToBrake = (frontCarDetector.isCarDetected() && frontCarDetector.getDetectedCarSpeed() < speedKmh);
+        if (leftObstacleDetector.isObstacleDetected() && rightObstacleDetector.isObstacleDetected())
+        {
+            reversing = 1f;
+        }
 
-        if (speedKmh < currentAiGate.maxSpeed)
+        if (reversing > 0f)
+        {
+            aiMovement.Reverse(false);
+        }
+        else if (speedKmh < currentAiGate.maxSpeed && !needToBrake)
         {
             if (!aiMovement.isChangingGear())
             {
                 aiMovement.Accelerate(false);
             }
         }
-        else if(speedKmh > currentAiGate.maxSpeed+2)
+        else if(speedKmh > currentAiGate.maxSpeed+2 || needToBrake)
         {
             aiMovement.Break(false, false, turn);
         }
@@ -144,6 +177,7 @@ public class AiControls : MonoBehaviour
         {
             aiMovement.Decelerate();
         }
+        aiMovement.Turn(false, false, turn);
     }
     private void OnTriggerEnter(Collider collider)
     {
