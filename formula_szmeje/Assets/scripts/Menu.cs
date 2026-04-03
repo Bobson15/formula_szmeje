@@ -83,6 +83,7 @@ public class Menu : MonoBehaviour
     public void Hotlap()
     {
         playerNameDeliver.playerName = playerNameInput.text.ToUpper();
+        playerNameDeliver.gamemode = Gamemode.HotLap;
         SceneManager.LoadScene(1);
     }
     public void ShowTimes()
@@ -100,6 +101,12 @@ public class Menu : MonoBehaviour
                 isTableMoving = true;
             }
         }
+    }
+    public void Race()
+    {
+        playerNameDeliver.playerName = playerNameInput.text.ToUpper();
+        playerNameDeliver.gamemode = Gamemode.Race;
+        SceneManager.LoadScene(1);
     }
     public void UpdatePlayerTime()
     {

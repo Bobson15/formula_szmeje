@@ -17,8 +17,6 @@ public class SectorTrigger : MonoBehaviour
             timer.TriggerLapStart();
         else
             timer.TriggerSector(sectorNumber);
-
-        Debug.Log("Wjechano w sektor: " + sectorNumber);    
     }
     
 }

@@ -12,11 +12,15 @@ TagManager:
   - Tarka
   - Ground
   - PlayerNameDeliver
+  - AiGate
+  - bariers
+  - AI
+  - Car
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Track
   - Water
   - UI
   - 

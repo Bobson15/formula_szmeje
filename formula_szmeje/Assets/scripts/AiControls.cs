@@ -1,0 +1,259 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class AiControls : MonoBehaviour, ISideFreeDetector
+{
+    private Movement aiMovement;
+    private Rigidbody rb;
+    private Transform transform;
+    public AiGate currentAiGate;
+    private ObstacleDetector leftObstacleDetector, rightObstacleDetector;
+    private GroundDetector leftGroundDetector, rightGroundDetector;
+    private SideDetector leftSideDetector, rightSideDetector;
+    private CarDetector frontCarDetector, leftCarDetector, rightCarDetector, leftTurnCarDetector, rightTurnCarDetector;
+    private OvertakeDetector leftOvertakeDetector, rightOvertakeDetector;
+    private float turn = 0f;
+    private float baseGateDifference = 0f;
+    private bool readyForNextGate = false, goingToOvertake = false;
+    private float avoiding = 0f, reversing = 0f;
+    void Start()
+    {
+        aiMovement = GetComponent<Movement>();
+        rb = GetComponent<Rigidbody>();
+        transform = GetComponent<Transform>();
+        leftObstacleDetector = transform.Find("obstacle_left_detector").GetComponent<ObstacleDetector>();
+        rightObstacleDetector = transform.Find("obstacle_right_detector").GetComponent<ObstacleDetector>();
+        leftGroundDetector = transform.Find("ground_left_detector").GetComponent<GroundDetector>();
+        rightGroundDetector = transform.Find("ground_right_detector").GetComponent<GroundDetector>();
+        leftSideDetector = transform.Find("side_left_detector").GetComponent<SideDetector>();
+        rightSideDetector = transform.Find("side_right_detector").GetComponent<SideDetector>();
+        frontCarDetector = transform.Find("car_front_detector").GetComponent<CarDetector>();
+        leftCarDetector = transform.Find("car_left_detector").GetComponent<CarDetector>();
+        rightCarDetector = transform.Find("car_right_detector").GetComponent<CarDetector>();
+        leftTurnCarDetector = transform.Find("car_left_turn_detector").GetComponent<CarDetector>();
+        rightTurnCarDetector = transform.Find("car_right_turn_detector").GetComponent<CarDetector>();
+        leftOvertakeDetector = transform.Find("overtake_left_detector").GetComponent<OvertakeDetector>();
+        rightOvertakeDetector = transform.Find("overtake_right_detector").GetComponent<OvertakeDetector>();
+    }
+
+    void Update()
+    {
+        float angle = Mathf.DeltaAngle(transform.eulerAngles.y, currentAiGate.nextGate.getRotation());
+        float gateDifference = Mathf.Abs(angle);
+        bool leftObstacleDetected = leftObstacleDetector.isObstacleDetected();
+        bool rightObstacleDetected = rightObstacleDetector.isObstacleDetected();
+        bool leftGroundDetected = leftGroundDetector.isGroundDetected();
+        bool rightGroundDetected = rightGroundDetector.isGroundDetected();
+        bool onLeftSide = leftSideDetector.isLeftDetected();
+        bool onRightSide = rightSideDetector.isRightDetected();
+        bool frontCarDetected = frontCarDetector.isCarDetected();
+        bool leftCarDetected = leftCarDetector.isCarDetected();
+        bool rightCarDetected = rightCarDetector.isCarDetected();
+        bool leftTurnCarDetected = leftTurnCarDetector.isCarDetected();
+        bool rightTurnCarDetected = rightTurnCarDetector.isCarDetected();
+        float oversteer = aiMovement.getOversteer();
+        if (avoiding > 0f)
+        {
+            avoiding -= Time.deltaTime;
+        }
+        if(reversing > 0f)
+        {
+            reversing -= Time.deltaTime;
+        }
+        if (!readyForNextGate && avoiding <= 0)
+        {
+            if (currentAiGate.side == AiGate.Side.left && !onLeftSide && gateDifference < 5 && !leftObstacleDetected && !leftGroundDetected && !leftCarDetected && !goingToOvertake && reversing <= 0)
+            {
+                turn = -0.1f;
+            }
+            else if (currentAiGate.side == AiGate.Side.right && !onRightSide && gateDifference < 5 && !rightObstacleDetected && !rightGroundDetected && !rightCarDetected && !goingToOvertake && reversing <= 0)
+            {
+                turn = 0.1f;
+            }
+            else if (gateDifference > 1)
+            {
+                if (baseGateDifference <= 5)
+                {
+                    if (angle > 0 && (!rightCarDetected || leftObstacleDetected || leftGroundDetected))
+                    {
+                        turn = 1f;
+                    }
+                    else if (angle < 0 && (!leftCarDetected || rightObstacleDetected || rightGroundDetected))
+                    {
+                        turn = -1f;
+                    }
+                }
+                else
+                {
+                    if (angle > 0 && (!rightTurnCarDetected || leftObstacleDetected || leftGroundDetected))
+                    {
+                        turn = 1f;
+                    }
+                    else if (angle < 0 && (!leftTurnCarDetected || rightObstacleDetected || rightGroundDetected))
+                    {
+                        turn = -1f;
+                    }
+                }
+            }
+            else
+            {
+                turn = 0f;
+                readyForNextGate = true;
+            }
+        }
+        if ((leftObstacleDetector.isObstacleDetected() && rightObstacleDetector.isObstacleDetected()) || reversing > 0f)
+        {
+            turn = -turn;
+        }
+        else if (leftGroundDetected && rightGroundDetected)
+        {
+            Vector3 gate = currentAiGate.nextGate.getPossition(), left = leftGroundDetector.getPossition(), right = rightGroundDetector.getPossition();
+            gate.y = 0;
+            left.y = 0;
+            right.y = 0;
+            float distanceRight = Vector3.Distance(gate, right);
+            float distanceLeft = Vector3.Distance(gate, left);
+            if (Mathf.Abs(distanceRight-distanceLeft)>2) {
+                if (distanceRight > distanceLeft)
+                {
+                    turn = -1f;
+                }
+                else
+                {
+                    turn = 1f;
+                }
+            }
+        }
+        else if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected) && turn <= 0f)
+        {
+            turn = 0.25f;
+            if (readyForNextGate)
+            {
+                avoiding = 0.25f;
+            }
+        }
+        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected) && turn >= 0f)
+        {
+            turn = -0.25f;
+            if (readyForNextGate)
+            {
+                avoiding = 0.25f;
+            }
+        }
+        else if (oversteer > 0.2f && ((angle > 0 && oversteer < 0 && !rightTurnCarDetected) || (angle < 0 && oversteer > 0 && !leftTurnCarDetected)))
+        {
+            turn = oversteer;
+        }
+        else if (gateDifference > 1 && readyForNextGate)
+        {
+            turn = 0f;
+            readyForNextGate = false;
+        }
+    }
+    void FixedUpdate() 
+    {
+        float speedKmh = rb.velocity.magnitude * 3.6f;
+        bool needToBrake = false;
+        GameObject closestCar = frontCarDetector.getClosestCar(gameObject.GetComponent<Transform>().position);
+        if (closestCar != null) {
+            Vector3 closestCarPosition = closestCar.GetComponent<Transform>().position, leftPosition = leftGroundDetector.getPossition(), rightPosition = rightGroundDetector.getPossition();
+            closestCarPosition.y = 0;
+            leftPosition.y = 0;
+            rightPosition.y = 0;
+            if (Vector3.Distance(closestCarPosition, rightPosition) <= Vector3.Distance(closestCarPosition, leftPosition))
+            {
+                if (isLeftSideFree() && closestCar.GetComponent<ISideFreeDetector>().isLeftSideFree())  
+                {
+                    turn = -0.2f;
+                    goingToOvertake = true;
+                }
+                else if(isRightSideFree() && closestCar.GetComponent<ISideFreeDetector>().isRightSideFree())
+                {
+                    turn = 0.2f;
+                    goingToOvertake = true;
+                }
+                else
+                {
+                    needToBrake = (frontCarDetector.isCarDetected() && closestCar.GetComponent<Rigidbody>().velocity.magnitude * 3.6f < speedKmh);
+                }
+            }
+            else if (Vector3.Distance(closestCarPosition, rightPosition) > Vector3.Distance(closestCarPosition, leftPosition) && isRightSideFree() && closestCar.GetComponent<AiControls>().isRightSideFree())
+            {
+                if (isRightSideFree() && closestCar.GetComponent<AiControls>().isRightSideFree())
+                {
+                    turn = 0.2f;
+                    goingToOvertake = true;
+                }
+                else if (isLeftSideFree() && closestCar.GetComponent<ISideFreeDetector>().isLeftSideFree())
+                {
+                    turn = -0.2f;
+                    goingToOvertake = true;
+                }
+                else
+                {
+                    needToBrake = (frontCarDetector.isCarDetected() && closestCar.GetComponent<Rigidbody>().velocity.magnitude * 3.6f < speedKmh);
+                }
+            }
+            else
+            {
+                needToBrake = (frontCarDetector.isCarDetected() && closestCar.GetComponent<Rigidbody>().velocity.magnitude * 3.6f < speedKmh);
+            }
+        }
+        if (leftObstacleDetector.isObstacleDetected() && rightObstacleDetector.isObstacleDetected())
+        {
+            reversing = 1f;
+        }
+
+        if (reversing > 0f)
+        {
+            aiMovement.Reverse(false);
+        }
+        else if (speedKmh < currentAiGate.maxSpeed && !needToBrake)
+        {
+            if (!aiMovement.isChangingGear())
+            {
+                aiMovement.Accelerate(false);
+            }
+        }
+        else if(speedKmh > currentAiGate.maxSpeed+2 || needToBrake)
+        {
+            aiMovement.Break(false, false, turn);
+        }
+        else
+        {
+            aiMovement.Decelerate();
+        }
+        aiMovement.Turn(false, false, turn);
+    }
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("AiGate"))
+        {
+            currentAiGate = collider.gameObject.GetComponent<AiGate>();
+            readyForNextGate = false;
+            baseGateDifference = Mathf.Abs(Mathf.DeltaAngle(currentAiGate.getRotation(), currentAiGate.nextGate.getRotation()));
+            avoiding = 0f;
+            goingToOvertake = false;
+            leftGroundDetector.changePossition(currentAiGate.canCut);
+            rightGroundDetector.changePossition(currentAiGate.canCut);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player"))
+        {
+            readyForNextGate = false;
+            Debug.Log("collision");
+        }
+    }
+    public bool isLeftSideFree()
+    {
+        return leftOvertakeDetector.canOvertake();
+    }
+    public bool isRightSideFree()
+    {
+        return rightOvertakeDetector.canOvertake();
+    }
+}
