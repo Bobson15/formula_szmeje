@@ -8,6 +8,7 @@ public class AiGate : MonoBehaviour
     public AiGate nextGate;
     public float maxSpeed;
     public Side side;
+    public bool canCut = false;
     public float getRotation()
     {
         return transform.eulerAngles.y;

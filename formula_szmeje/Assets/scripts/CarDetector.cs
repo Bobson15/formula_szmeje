@@ -5,12 +5,12 @@ using UnityEngine;
 public class CarDetector : MonoBehaviour
 {
     private int detectedCars = 0;
-    private Dictionary<Rigidbody, int> detectedCarsDict = new Dictionary<Rigidbody, int>();
+    private Dictionary<GameObject, int> detectedCarsDict = new Dictionary<GameObject, int>();
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Car"))
         {
-            Rigidbody rb = collider.GetComponentInParent<Rigidbody>();
+            GameObject rb = collider.transform.parent.gameObject;
             if (detectedCarsDict.ContainsKey(rb))
             {
                 detectedCarsDict[rb]++;
@@ -18,18 +18,18 @@ public class CarDetector : MonoBehaviour
             else
             {
                 detectedCars++;
-                detectedCarsDict.Add(collider.GetComponentInParent<Rigidbody>(), 1);
+                detectedCarsDict.Add(collider.transform.parent.gameObject, 1);
             }
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.CompareTag("Car") && detectedCarsDict.ContainsKey(collider.GetComponentInParent<Rigidbody>()))
+        if (collider.CompareTag("Car") && detectedCarsDict.ContainsKey(collider.transform.parent.gameObject))
         {
-            Rigidbody rb = collider.GetComponentInParent<Rigidbody>();
-            detectedCarsDict[rb]--;
-            if (detectedCarsDict[rb] == 0) { 
-                detectedCarsDict.Remove(rb);
+            GameObject car = collider.transform.parent.gameObject;
+            detectedCarsDict[car]--;
+            if (detectedCarsDict[car] == 0) { 
+                detectedCarsDict.Remove(car);
                 detectedCars--;
             }
         }
@@ -38,19 +38,31 @@ public class CarDetector : MonoBehaviour
     {
         return detectedCars > 0;
     }
-    public float getDetectedCarSpeed()
+    public GameObject getClosestCar(Vector3 position)
     {
-        float speed = 0;
-        if (detectedCars > 0)
+        if (detectedCars == 0)
+        {
+            return null;
+        }
+        else
         {
             var car = detectedCarsDict.GetEnumerator();
             car.MoveNext();
-            speed = car.Current.Key.velocity.magnitude * 3.6f;
-            while(car.MoveNext()) {
-                speed = Mathf.Min(speed, car.Current.Key.velocity.magnitude * 3.6f);
+            GameObject closestCar = car.Current.Key;
+            Vector3 clocestCarPosition = closestCar.transform.position;
+            clocestCarPosition.y = 0;
+            position.y = 0;
+            while (car.MoveNext())
+            {
+                Vector3 carPosition = car.Current.Key.transform.position;
+                carPosition.y = 0;
+                if (Vector3.Distance(position, clocestCarPosition) > Vector3.Distance(position, carPosition)){
+                    closestCar = car.Current.Key;
+                    clocestCarPosition = carPosition;
+                }
             }
+            return closestCar;
         }
-        return speed;
     }
     public void getInfo()
     {

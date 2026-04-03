@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.IO;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LapTimer : MonoBehaviour
 {
@@ -110,49 +111,58 @@ public class LapTimer : MonoBehaviour
 
         if (lapStarted && currentSector == 3)
         {
-            sector3Time = now - sectorStartTime;
-            UstawKolor(sektor3Image, sector3Time, ref bestSector3);
-
-            float finalLapTime = now - lapStartTime;
-            lastLapTime = finalLapTime;
-
-            lapTimeText.text = "Lap: " + FormatTime(finalLapTime);
-            prevTimeText.text = "Previous: " + FormatTime(finalLapTime);
-
-            if (finalLapTime < bestLapTime)
+            if (++lapCount < 5)
             {
-                bestLapTime = finalLapTime;
-                bestTimeText.text = "Best: " + FormatTime(bestLapTime);
-                if (playerName != "" && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode==Gamemode.HotLap)
+
+                sector3Time = now - sectorStartTime;
+                UstawKolor(sektor3Image, sector3Time, ref bestSector3);
+
+                float finalLapTime = now - lapStartTime;
+                lastLapTime = finalLapTime;
+
+                lapTimeText.text = "Lap: " + FormatTime(finalLapTime);
+                prevTimeText.text = "Previous: " + FormatTime(finalLapTime);
+
+                if (finalLapTime < bestLapTime)
                 {
-                    bool playerFound = false;
-                    for (int i = 0; i < lapTimes.playersList.Count; i++)
+                    bestLapTime = finalLapTime;
+                    bestTimeText.text = "Best: " + FormatTime(bestLapTime);
+                    if (playerName != "" && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.HotLap)
                     {
-                        if (lapTimes.playersList[i].playerName == playerName)
+                        bool playerFound = false;
+                        for (int i = 0; i < lapTimes.playersList.Count; i++)
                         {
-                            lapTimes.playersList[i].bestLapTime = bestLapTime;
-                            lapTimes.playersList[i].bestFirstSectorTime = bestSector1;
-                            lapTimes.playersList[i].bestSecondSectorTime = bestSector2;
-                            lapTimes.playersList[i].bestThirdSectorTime = bestSector3;
-                            playerFound = true;
-                            break;
+                            if (lapTimes.playersList[i].playerName == playerName)
+                            {
+                                lapTimes.playersList[i].bestLapTime = bestLapTime;
+                                lapTimes.playersList[i].bestFirstSectorTime = bestSector1;
+                                lapTimes.playersList[i].bestSecondSectorTime = bestSector2;
+                                lapTimes.playersList[i].bestThirdSectorTime = bestSector3;
+                                playerFound = true;
+                                break;
+                            }
                         }
+                        if (!playerFound)
+                        {
+                            lapTimes.playersList.Add(new PlayerNameDeliverSerializer(playerName, bestLapTime, bestSector1, bestSector2, bestSector3));
+                        }
+                        string json = JsonUtility.ToJson(lapTimes, true);
+                        File.WriteAllText(lapTimesFilePath, json);
                     }
-                    if (!playerFound)
-                    {
-                        lapTimes.playersList.Add(new PlayerNameDeliverSerializer(playerName, bestLapTime, bestSector1, bestSector2, bestSector3));
-                    }
-                    string json = JsonUtility.ToJson(lapTimes, true);
-                    File.WriteAllText(lapTimesFilePath, json);
                 }
+                lapStartTime = now;
+                sectorStartTime = now;
+                currentSector = 1;
+                sektor1Image.color = kolorDomyslny;
+                sektor2Image.color = kolorDomyslny;
+                sektor3Image.color = kolorDomyslny;
+                lapTimeText.text = "Lap: 00:00.000";
             }
-            lapStartTime = now;
-            sectorStartTime = now;
-            currentSector = 1;
-            sektor1Image.color = kolorDomyslny;
-            sektor2Image.color = kolorDomyslny;
-            sektor3Image.color = kolorDomyslny;
-            lapTimeText.text = "Lap: 00:00.000";
+            else
+            {
+                Destroy(GameObject.FindWithTag("PlayerNameDeliver"));
+                SceneManager.LoadScene(0);
+            }
         }
     }
 

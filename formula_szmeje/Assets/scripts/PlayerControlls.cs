@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControlls : MonoBehaviour
+public class PlayerControlls : MonoBehaviour, ISideFreeDetector
 {
     private CarState carState = CarState.Stop;
     private PlayerInput playerInput;
     private Movement playerMovement;
     private Rigidbody rb;
+    private OvertakeDetector leftOvertakeDetector, rightOvertakeDetector;
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerMovement = GetComponent<Movement>();
         rb = GetComponent<Rigidbody>();
+        leftOvertakeDetector = transform.Find("overtake_left_detector").GetComponent<OvertakeDetector>();
+        rightOvertakeDetector = transform.Find("overtake_right_detector").GetComponent<OvertakeDetector>();
     }
 
     void FixedUpdate()
@@ -62,6 +65,14 @@ public class PlayerControlls : MonoBehaviour
                 carState = CarState.Stop;
             }
         }
+    }
+    public bool isLeftSideFree()
+    {
+        return leftOvertakeDetector.canOvertake();
+    }
+    public bool isRightSideFree()
+    {
+        return rightOvertakeDetector.canOvertake();
     }
     private enum CarState
     {

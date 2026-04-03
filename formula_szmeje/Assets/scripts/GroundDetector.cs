@@ -10,6 +10,7 @@ public class GroundDetector : MonoBehaviour
     public float rayLength = 5f;
     private Terrain terrain;
     private bool groundDetected = false;
+    private bool canCut = false;
 
     void Start()
     {
@@ -18,18 +19,17 @@ public class GroundDetector : MonoBehaviour
 
     void FixedUpdate()
     {
-        groundDetected = true;
+        bool tempGroundDetected = true;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, rayLength, trackLayer))
         {
             float terrainHeight = terrain.SampleHeight(hit.point);
             if (hit.point.y > terrainHeight)
             {
-                groundDetected = false;
+                tempGroundDetected = false;
             }
         }
-
-        Debug.DrawRay(transform.position, Vector3.down * rayLength, groundDetected ? Color.green : Color.red);
+        groundDetected = tempGroundDetected;
     }
 
     public bool isGroundDetected()
@@ -41,8 +41,20 @@ public class GroundDetector : MonoBehaviour
         return transform.position;
     }
     public void info()
-
     {
         Debug.Log(gameObject.name + " " + groundDetected);
+    }
+    public void changePossition(bool canCut)
+    {
+        if (this.canCut && !canCut)
+        {
+            this.canCut = false;
+            transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.8f, transform.localPosition.y, transform.localPosition.z);
+        }
+        else if (!this.canCut && canCut)
+        {
+            this.canCut = true;
+            transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.4f, transform.localPosition.y, transform.localPosition.z);
+        }
     }
 }
