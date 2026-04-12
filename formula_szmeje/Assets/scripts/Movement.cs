@@ -77,11 +77,13 @@ public class Movement : MonoBehaviour
             bool backRGroundHit = tireBackRCollider.GetGroundHit(out backRightHit);
             leftOversteer = backLeftHit.sidewaysSlip;
             rightOversteer = backRightHit.sidewaysSlip;
+            bool leftOfTrack = false, rightOfTrack = false;
             if (frontLGroundHit)
             {
                 if (frontLeftHit.collider.gameObject.CompareTag("Ground"))
                 {
                     tireFrontLCollider.forwardFriction = forwardOfTrack;
+                    leftOfTrack = true;
                 }
                 else if (forwardFrontLeft.stiffness == forwardOfTrack.stiffness)
                 {
@@ -101,6 +103,7 @@ public class Movement : MonoBehaviour
                 if (frontRightHit.collider.gameObject.CompareTag("Ground"))
                 {
                     tireFrontRCollider.forwardFriction = forwardOfTrack;
+                    rightOfTrack = true;
                 }
                 else if (forwardFrontRight.stiffness == forwardOfTrack.stiffness)
                 {
@@ -151,6 +154,14 @@ public class Movement : MonoBehaviour
                 if (backLGroundHit && frontRGroundHit)
                 {
                     rb.AddForce(new Vector3(0, 100 * -downforceCoefficient, 0), ForceMode.Force);
+                }
+            }
+            if(leftOfTrack && rightOfTrack)
+            {
+                LapTimer lapTimer = gameObject.GetComponent<LapTimer>();
+                if(lapTimer != null)
+                {
+                    lapTimer.SetInvalidLap();
                 }
             }
         }

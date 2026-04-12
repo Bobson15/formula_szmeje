@@ -12,9 +12,7 @@ public class RaceStarter : MonoBehaviour
     void Start()
     {
         playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
-        playerMovement = GameObject.FindWithTag("Player").GetComponent<Movement>();
-        //Zmienić potem z == null na != null oraz || na &&
-        if (playerNameDeliverObj == null || playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<Movement>();        if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
         {
             StartCoroutine(StartRace());
         }
@@ -42,6 +40,7 @@ public class RaceStarter : MonoBehaviour
             startingLights.transform.GetChild(i).GetComponent<Image>().color = Color.gray;
         }
         playerMovement.start();
+        GameObject.FindWithTag("Player").GetComponent<LapTimer>().TriggerLapStart();
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
         {
             ai.GetComponent<Movement>().start();

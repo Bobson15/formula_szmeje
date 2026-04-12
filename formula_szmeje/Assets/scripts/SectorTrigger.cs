@@ -8,13 +8,21 @@ public class SectorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        ILapCounter timer = other.transform.parent.GetComponent<ILapCounter>();
 
-        LapTimer timer = FindObjectOfType<LapTimer>();
         if (timer == null) return;
-
-        if (sectorNumber == 0)
+        if (other.transform.parent.CompareTag("AI"))
+        {
+            Debug.Log("przed");
+        }
+        if (sectorNumber == 0 && (other.transform.parent.CompareTag("AI") || !((LapTimer)timer).isTimerBlocked()))
+        {
+            if (other.transform.parent.CompareTag("AI"))
+            {
+                Debug.Log("po");
+            }
             timer.TriggerLapStart();
+        }
         else
             timer.TriggerSector(sectorNumber);
     }

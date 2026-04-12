@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface ISideFreeDetector
 {
-    bool isLeftSideFree();
-    bool isRightSideFree();
+    bool isLeftSideFree(GameObject overtakingCar);
+    bool isRightSideFree(GameObject overtakingCar);
+    float getBaseGateDiffrence();
 }
