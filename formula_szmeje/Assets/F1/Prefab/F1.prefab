@@ -423,7 +423,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100008}
-  m_Material: {fileID: 13400000, guid: a8e92db165b339d4ebdaebad0d48b41b, type: 2}
+  m_Material: {fileID: 13400000, guid: db19ec5105a81fb46960cdd7caf05412, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -520,7 +520,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100010}
-  m_Material: {fileID: 13400000, guid: a8e92db165b339d4ebdaebad0d48b41b, type: 2}
+  m_Material: {fileID: 13400000, guid: db19ec5105a81fb46960cdd7caf05412, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1040,8 +1040,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5731160158040181020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0.3, z: 0.02}
-  m_LocalScale: {x: 1.4, y: 0.5, z: 3.1}
+  m_LocalPosition: {x: 1.4, y: 0.3, z: -1.35}
+  m_LocalScale: {x: 1.4, y: 0.5, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
@@ -1072,6 +1072,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7dd575dcba4b24c90c2056cfd9bfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  rayLength: 5
+  raycastPosition: 1
 --- !u!1 &5949894878189019344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,8 +1103,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5949894878189019344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4, y: 0.3, z: 0.02}
-  m_LocalScale: {x: 1.4, y: 0.5, z: 3.1}
+  m_LocalPosition: {x: -1.4, y: 0.3, z: -1.35}
+  m_LocalScale: {x: 1.4, y: 0.5, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400016}
@@ -1130,6 +1135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7dd575dcba4b24c90c2056cfd9bfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  rayLength: 5
+  raycastPosition: -1
 --- !u!1 &7764579208195774109
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PlayerControlls : MonoBehaviour, ISideFreeDetector
     private Movement playerMovement;
     private Rigidbody rb;
     private OvertakeDetector leftOvertakeDetector, rightOvertakeDetector;
+    private float baseGateDiffrence = 0;
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -66,18 +67,30 @@ public class PlayerControlls : MonoBehaviour, ISideFreeDetector
             }
         }
     }
-    public bool isLeftSideFree()
+    public bool isLeftSideFree(GameObject overtakingCar)
     {
-        return leftOvertakeDetector.canOvertake();
+        return leftOvertakeDetector.canOvertake(overtakingCar);
     }
-    public bool isRightSideFree()
+    public bool isRightSideFree(GameObject overtakingCar)
     {
-        return rightOvertakeDetector.canOvertake();
+        return rightOvertakeDetector.canOvertake(overtakingCar);
     }
     private enum CarState
     {
         Backward = -1,
         Stop = 0,
         Forward = 1
+    }
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("AiGate"))
+        {
+            AiGate currentAiGate = collider.gameObject.GetComponent<AiGate>();
+            baseGateDiffrence = Mathf.Abs(Mathf.DeltaAngle(currentAiGate.getRotation(), currentAiGate.nextGate.getRotation()));
+        }
+    }
+    public float getBaseGateDiffrence()
+    {
+        return baseGateDiffrence;
     }
 }
