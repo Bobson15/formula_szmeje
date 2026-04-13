@@ -53,6 +53,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
     private string lapTimesFilePath;
     private PlayerNameDeliverSerializerList lapTimes = new PlayerNameDeliverSerializerList();
     private GameObject playerNameDeliverObj;
+    private PlayerNameDeliver playerNameDeliver;
     private bool blockTimer = false;
 
     private void Start()
@@ -73,7 +74,8 @@ public class LapTimer : MonoBehaviour, ILapCounter
         }
         playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
         if (playerNameDeliverObj != null) {
-            if(playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.HotLap) {
+            playerNameDeliver = playerNameDeliverObj.GetComponent<PlayerNameDeliver>();
+            if(playerNameDeliver.gamemode == Gamemode.HotLap) {
                 playerName = playerNameDeliverObj.GetComponent<PlayerNameDeliver>().playerName;
                 for (int i = 0; i < lapTimes.playersList.Count; i++) {
                     if (lapTimes.playersList[i].playerName == playerName) {
@@ -87,7 +89,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
                 }
                 possitionText.text = "";
             }
-            else if(playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+            else if(playerNameDeliver.gamemode == Gamemode.Race)
             {
                 blockTimer = true;
                 lapsCounterText.text = "Laps: 1/5";
@@ -135,7 +137,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
 
         if (lapStarted && currentSector == 3)
         {
-            if (++lapCount >= 5 && playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+            if (++lapCount >= 5 && playerNameDeliverObj != null && playerNameDeliver.gamemode == Gamemode.Race)
             {
                 Destroy(GameObject.FindWithTag("PlayerNameDeliver"));
                 pauseMenu.EndRace(position);
@@ -160,7 +162,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
                     {
                         bestLapTime = finalLapTime;
                         bestTimeText.text = "Best: " + FormatTime(bestLapTime);
-                        if (playerName != "" && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.HotLap)
+                        if (playerName != "" && playerNameDeliver.gamemode == Gamemode.HotLap)
                         {
                             bool playerFound = false;
                             for (int i = 0; i < lapTimes.playersList.Count; i++)
@@ -192,7 +194,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
                 sektor3Image.color = kolorDomyslny;
                 lapTimeText.text = "Lap: 00:00.000";
                 invalidLap = false;
-                if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+                if (playerNameDeliverObj != null && playerNameDeliver.gamemode == Gamemode.Race)
                 {
                     lapsCounterText.text = "Laps: " + (lapCount + 1) + "/5";
                 }
@@ -263,7 +265,7 @@ public class LapTimer : MonoBehaviour, ILapCounter
     }
     public void SetInvalidLap()
     {
-        if((playerNameDeliverObj == null || playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.HotLap) && !invalidLap)
+        if((playerNameDeliverObj == null || playerNameDeliver.gamemode == Gamemode.HotLap) && !invalidLap)
         {
             invalidLap = true;
             StartCoroutine(ShowLapInvalid());

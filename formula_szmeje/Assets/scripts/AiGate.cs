@@ -11,6 +11,13 @@ public class AiGate : MonoBehaviour
     public Side side;
     public bool canCut = false;
     private Dictionary<GameObject, int> laps = new Dictionary<GameObject, int>();
+    private GameObject playerNameDeliverObj;
+    private PlayerNameDeliver playerNameDeliver;
+    private void Start()
+    {
+        playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
+        playerNameDeliver = playerNameDeliverObj.GetComponent<PlayerNameDeliver>();
+    }
     public float getRotation()
     {
         return transform.eulerAngles.y;
@@ -28,8 +35,7 @@ public class AiGate : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collider)
     {
-        GameObject playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
-        if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+        if (playerNameDeliverObj != null && playerNameDeliver.gamemode == Gamemode.Race)
         {
             GameObject parent = collider.transform.parent.gameObject;
             if (parent.CompareTag("AI"))
