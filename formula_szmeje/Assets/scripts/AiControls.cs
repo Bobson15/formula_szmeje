@@ -107,11 +107,11 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
 
         if(turn < 0f && baseGateDifference > 5f && (rightTurnCarDetected || rightGroundDetected))
         {
-            speedCorection = -10;
+            speedCorection = -(currentAiGate.maxSpeed / 10);
         }
         else if(turn > 0f && baseGateDifference > 5f && leftTurnCarDetected || leftGroundDetected)
         {
-            speedCorection = -10;
+            speedCorection = -(currentAiGate.maxSpeed / 10);
         }
         else
         {
