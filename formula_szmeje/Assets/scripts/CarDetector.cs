@@ -31,6 +31,10 @@ public class CarDetector : MonoBehaviour
             if (detectedCarsDict[car] == 0) { 
                 detectedCarsDict.Remove(car);
                 detectedCars--;
+                if(detectedCars < 0)
+                {
+                    detectedCars = 0;
+                }
             }
         }
     }
@@ -49,14 +53,14 @@ public class CarDetector : MonoBehaviour
             var car = detectedCarsDict.GetEnumerator();
             car.MoveNext();
             GameObject closestCar = car.Current.Key;
+            position.y = 0;
             Vector3 clocestCarPosition = closestCar.transform.position;
             clocestCarPosition.y = 0;
-            position.y = 0;
             while (car.MoveNext())
             {
                 Vector3 carPosition = car.Current.Key.transform.position;
                 carPosition.y = 0;
-                if (Vector3.Distance(position, clocestCarPosition) > Vector3.Distance(position, carPosition)){
+                if (Vector3.SqrMagnitude(position - clocestCarPosition) > Vector3.SqrMagnitude(position - carPosition)){
                     closestCar = car.Current.Key;
                     clocestCarPosition = carPosition;
                 }

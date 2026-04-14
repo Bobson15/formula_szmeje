@@ -12,7 +12,8 @@ public class RaceStarter : MonoBehaviour
     void Start()
     {
         playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
-        playerMovement = GameObject.FindWithTag("Player").GetComponent<Movement>();        if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<Movement>();        
+        if (playerNameDeliverObj != null && playerNameDeliverObj.GetComponent<PlayerNameDeliver>().gamemode == Gamemode.Race)
         {
             StartCoroutine(StartRace());
         }
