@@ -14,7 +14,31 @@ public class OvertakeDetector : MonoBehaviour
     public int raycastPosition = 0;
     void Start()
     {
-        terrain = GameObject.Find("Monza").GetComponent<Terrain>(); ;
+        terrain = GameObject.Find("Monza").GetComponent<Terrain>();
+        Collider collider = GetComponent<Collider>();
+
+        Collider[] hits = Physics.OverlapBox(collider.bounds.center, collider.bounds.extents);
+
+        foreach (var hit in hits)
+        {
+            if (hit.transform.root.CompareTag("bariers"))
+            {
+                detectedBariers++;
+            }
+            else if (hit.CompareTag("Car"))
+            {
+                GameObject rb = hit.transform.parent.gameObject;
+                if (detectedCarsDict.ContainsKey(rb))
+                {
+                    detectedCarsDict[rb]++;
+                }
+                else
+                {
+                    detectedCars++;
+                    detectedCarsDict.Add(rb, 1);
+                }
+            }
+        }
     }
     private void OnTriggerEnter(Collider collider)
     {
@@ -32,7 +56,7 @@ public class OvertakeDetector : MonoBehaviour
             else
             {
                 detectedCars++;
-                detectedCarsDict.Add(collider.transform.parent.gameObject, 1);
+                detectedCarsDict.Add(rb, 1);
             }
         }
     }
@@ -40,7 +64,10 @@ public class OvertakeDetector : MonoBehaviour
     {
         if ( collider.transform.root.CompareTag("bariers"))
         {
-            detectedBariers = Math.Max(detectedBariers - 1, 0);
+            if(--detectedBariers < 0)
+            {
+                detectedBariers = 0;
+            }
         }
         else if (collider.CompareTag("Car") && detectedCarsDict.ContainsKey(collider.transform.parent.gameObject))
         {
@@ -49,7 +76,10 @@ public class OvertakeDetector : MonoBehaviour
             if (detectedCarsDict[car] == 0)
             {
                 detectedCarsDict.Remove(car);
-                detectedCars--;
+                if (--detectedCars < 0)
+                {
+                    detectedCars = 0;
+                }
             }
         }
     }

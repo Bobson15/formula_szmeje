@@ -18,7 +18,7 @@ public class CarDetector : MonoBehaviour
             else
             {
                 detectedCars++;
-                detectedCarsDict.Add(collider.transform.parent.gameObject, 1);
+                detectedCarsDict.Add(rb, 1);
             }
         }
     }

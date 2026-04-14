@@ -131,14 +131,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367063205509215906}
-  m_LocalRotation: {x: 0, y: 0.01745245, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: -0.9, y: 0.15, z: 0.1}
-  m_LocalScale: {x: 0.5, y: 0.2, z: 3.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6, y: 0.15, z: 0.1}
+  m_LocalScale: {x: 1, y: 0.2, z: 3.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6176191635190811280}
   m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 2, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8164580110961383927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -189,14 +189,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2553771940991369622}
-  m_LocalRotation: {x: 0, y: -0.01745245, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: 0.9, y: 0.15, z: 0.1}
-  m_LocalScale: {x: 0.5, y: 0.2, z: 3.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6, y: 0.15, z: 0.1}
+  m_LocalScale: {x: 1, y: 0.2, z: 3.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6176191635190811280}
   m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: -2, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7251747345551419129
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -799,6 +799,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100016, guid: 62d38c3b81a175f4585f3bb99fca3071, type: 3}
   m_PrefabInstance: {fileID: 6176191635191205888}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5951343900334187499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6176191635191109296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b34c28c7d4873248bc0f09d5d7eed84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8227906431702713169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,15 +824,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAiGate: {fileID: 0}
---- !u!114 &5951343900334187499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6176191635191109296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b34c28c7d4873248bc0f09d5d7eed84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

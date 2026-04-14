@@ -16,7 +16,10 @@ public class AiGate : MonoBehaviour
     private void Start()
     {
         playerNameDeliverObj = GameObject.FindWithTag("PlayerNameDeliver");
-        playerNameDeliver = playerNameDeliverObj.GetComponent<PlayerNameDeliver>();
+        if (playerNameDeliverObj != null)
+        {
+            playerNameDeliver = playerNameDeliverObj.GetComponent<PlayerNameDeliver>();
+        }
     }
     public float getRotation()
     {

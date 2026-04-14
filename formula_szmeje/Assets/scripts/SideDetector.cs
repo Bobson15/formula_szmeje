@@ -6,6 +6,25 @@ public class SideDetector : MonoBehaviour
 {
     private int leftDetections = 0;
     private int rightDetections = 0;
+    void Start()
+    {
+        Collider collider = GetComponent<Collider>();
+
+        Collider[] hits = Physics.OverlapBox(collider.bounds.center, collider.bounds.extents);
+
+        foreach (var hit in hits)
+        {
+            string hitName = hit.transform.name;
+            if (hitName.StartsWith("SCutL"))
+            {
+                leftDetections++;
+            }
+            else if (hitName.StartsWith("SCutR"))
+            {
+                rightDetections++;
+            }
+        }
+    }
     private void OnTriggerEnter(Collider collider)
     {
         string colliderName = collider.transform.name;

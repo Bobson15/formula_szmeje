@@ -283,7 +283,6 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
         if (collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player"))
         {
             readyForNextGate = false;
-            Debug.Log("collision");
         }
     }
     public bool isLeftSideFree(GameObject overtakingCar)
