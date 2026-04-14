@@ -10,7 +10,7 @@ public class GroundDetector : MonoBehaviour
     public float rayLength = 5f;
     private Terrain terrain;
     private bool groundDetected = false;
-    private bool canCut = false;
+    private AiGate.CutState cutState = AiGate.CutState.none;
 
     void Start()
     {
@@ -44,17 +44,25 @@ public class GroundDetector : MonoBehaviour
     {
         Debug.Log(gameObject.name + " " + groundDetected);
     }
-    public void changePossition(bool canCut)
+    public void changePossition(AiGate.CutState cutState)
     {
-        if (this.canCut && !canCut)
+        if(this.cutState != cutState)
         {
-            this.canCut = false;
-            transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.8f, transform.localPosition.y, transform.localPosition.z);
-        }
-        else if (!this.canCut && canCut)
-        {
-            this.canCut = true;
-            transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.4f, transform.localPosition.y, transform.localPosition.z);
+            if (cutState == AiGate.CutState.none)
+            {
+                this.cutState = AiGate.CutState.none;
+                transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.8f, transform.localPosition.y, transform.localPosition.z);
+            }
+            else if (cutState == AiGate.CutState.half)
+            {
+                this.cutState = AiGate.CutState.half;
+                transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.6f, transform.localPosition.y, transform.localPosition.z);
+            }
+            else if (cutState == AiGate.CutState.full)
+            {
+                this.cutState = AiGate.CutState.full;
+                transform.localPosition = new Vector3((transform.localPosition.x / Mathf.Abs(transform.localPosition.x)) * 0.4f, transform.localPosition.y, transform.localPosition.z);
+            }
         }
     }
 }

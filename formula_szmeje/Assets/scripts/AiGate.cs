@@ -9,7 +9,7 @@ public class AiGate : MonoBehaviour
     public AiGate nextGate;
     public float maxSpeed;
     public Side side;
-    public bool canCut = false;
+    public CutState cutState = CutState.none;
     private Dictionary<GameObject, int> laps = new Dictionary<GameObject, int>();
     private GameObject playerNameDeliverObj;
     private PlayerNameDeliver playerNameDeliver;
@@ -35,6 +35,12 @@ public class AiGate : MonoBehaviour
         none,
         left,
         right
+    }
+    public enum CutState
+    {
+        none,
+        half,
+        full
     }
     private void OnTriggerEnter(Collider collider)
     {

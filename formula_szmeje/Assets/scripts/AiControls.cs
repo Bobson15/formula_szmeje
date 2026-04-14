@@ -274,8 +274,8 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
             baseGateDifference = Mathf.Abs(Mathf.DeltaAngle(currentAiGate.getRotation(), currentAiGate.nextGate.getRotation()));
             avoiding = 0f;
             goingToOvertake = false;
-            leftGroundDetector.changePossition(currentAiGate.canCut);
-            rightGroundDetector.changePossition(currentAiGate.canCut);
+            leftGroundDetector.changePossition(currentAiGate.cutState);
+            rightGroundDetector.changePossition(currentAiGate.cutState);
         }
     }
     private void OnCollisionEnter(Collision collision)
