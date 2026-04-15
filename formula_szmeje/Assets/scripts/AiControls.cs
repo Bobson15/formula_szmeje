@@ -65,13 +65,13 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
         }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (currentAiGate.side == AiGate.Side.left && !onLeftSide && gateDifference < 5 && !leftObstacleDetected && !leftGroundDetected && !rightGroundDetected && !leftCarDetected && !goingToOvertake && reversing <= 0)
+            if (currentAiGate.side == AiGate.Side.left && !onLeftSide && gateDifference < 5 && !leftObstacleDetected && !leftGroundDetected && !(rightGroundDetected && leftGroundDetected) && !leftCarDetected && !goingToOvertake && reversing <= 0)
             {
-                turn = -0.1f;
+                turn = -0.2f;
             }
-            else if (currentAiGate.side == AiGate.Side.right && !onRightSide && gateDifference < 5 && !rightObstacleDetected && !leftGroundDetected && !rightGroundDetected && !rightCarDetected && !goingToOvertake && reversing <= 0)
+            else if (currentAiGate.side == AiGate.Side.right && !onRightSide && gateDifference < 5 && !rightObstacleDetected && !rightGroundDetected && !(leftGroundDetected && rightGroundDetected) && !rightCarDetected && !goingToOvertake && reversing <= 0)
             {
-                turn = 0.1f;
+                turn = 0.2f;
             }
             else if (gateDifference > 1)
             {
@@ -105,11 +105,13 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
             }
         }
 
-        if(turn < 0f && baseGateDifference > 5f && (rightTurnCarDetected || rightGroundDetected))
+        angleCorection = 0;
+
+        if(turn < 0f && baseGateDifference > 5f && (rightCarDetected || rightGroundDetected))
         {
             speedCorection = -(currentAiGate.maxSpeed / 10);
         }
-        else if(turn > 0f && baseGateDifference > 5f && leftTurnCarDetected || leftGroundDetected)
+        else if(turn > 0f && baseGateDifference > 5f && (leftCarDetected || leftGroundDetected))
         {
             speedCorection = -(currentAiGate.maxSpeed / 10);
         }
