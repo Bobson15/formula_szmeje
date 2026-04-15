@@ -1228,6 +1228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707845279943485416}
   - component: {fileID: 741507546190082190}
+  - component: {fileID: 3563163534242734196}
   m_Layer: 0
   m_Name: drag_reducer
   m_TagString: Untagged
@@ -1243,7 +1244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7874750324697698858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14999999, z: 5.189998}
+  m_LocalPosition: {x: 0, y: 0.14999999, z: 5.24}
   m_LocalScale: {x: 0.5500001, y: 0.35, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1258,8 +1259,20 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7874750324697698858}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3563163534242734196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874750324697698858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53322afe40e5fcd4d9b0845858f24732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
