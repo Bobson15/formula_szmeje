@@ -18,7 +18,7 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
     private float baseGateDifference = 0f;
     private bool readyForNextGate = false, goingToOvertake = false;
     private float avoiding = 0f, reversing = 0f;
-    private float speedCorection = 0;
+    private float speedCorection = 0, angleCorection = 0;
     void Start()
     {
         aiMovement = GetComponent<Movement>();
@@ -42,7 +42,7 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
     void Update()
     {
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, currentAiGate.nextGate.getRotation());
-        float gateDifference = Mathf.Abs(angle);
+        float gateDifference = Mathf.Abs(angle  + angleCorection);
         bool leftObstacleDetected = leftObstacleDetector.isObstacleDetected();
         bool rightObstacleDetected = rightObstacleDetector.isObstacleDetected();
         bool leftGroundDetected = leftGroundDetector.isGroundDetected();
@@ -65,11 +65,11 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
         }
         if (!readyForNextGate && avoiding <= 0)
         {
-            if (currentAiGate.side == AiGate.Side.left && !onLeftSide && gateDifference < 5 && !leftObstacleDetected && !leftGroundDetected && !leftCarDetected && !goingToOvertake && reversing <= 0)
+            if (currentAiGate.side == AiGate.Side.left && !onLeftSide && gateDifference < 5 && !leftObstacleDetected && !leftGroundDetected && !rightGroundDetected && !leftCarDetected && !goingToOvertake && reversing <= 0)
             {
                 turn = -0.1f;
             }
-            else if (currentAiGate.side == AiGate.Side.right && !onRightSide && gateDifference < 5 && !rightObstacleDetected && !rightGroundDetected && !rightCarDetected && !goingToOvertake && reversing <= 0)
+            else if (currentAiGate.side == AiGate.Side.right && !onRightSide && gateDifference < 5 && !rightObstacleDetected && !leftGroundDetected && !rightGroundDetected && !rightCarDetected && !goingToOvertake && reversing <= 0)
             {
                 turn = 0.1f;
             }
@@ -77,22 +77,22 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
             {
                 if (baseGateDifference <= 5)
                 {
-                    if (angle > 0 && (!rightCarDetected || leftObstacleDetected || leftGroundDetected))
+                    if (angle + angleCorection > 0 && (!rightCarDetected || leftObstacleDetected || leftGroundDetected))
                     {
                         turn = 1f;
                     }
-                    else if (angle < 0 && (!leftCarDetected || rightObstacleDetected || rightGroundDetected))
+                    else if (angle + angleCorection < 0 && (!leftCarDetected || rightObstacleDetected || rightGroundDetected))
                     {
                         turn = -1f;
                     }
                 }
                 else
                 {
-                    if (angle > 0 && (!rightTurnCarDetected || leftObstacleDetected || leftGroundDetected))
+                    if (angle + angleCorection > 0 && (!rightCarDetected || leftObstacleDetected || leftGroundDetected))
                     {
                         turn = 1f;
                     }
-                    else if (angle < 0 && (!leftTurnCarDetected || rightObstacleDetected || rightGroundDetected))
+                    else if (angle + angleCorection < 0 && (!leftCarDetected || rightObstacleDetected || rightGroundDetected))
                     {
                         turn = -1f;
                     }
@@ -107,11 +107,11 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
 
         if(turn < 0f && baseGateDifference > 5f && (rightTurnCarDetected || rightGroundDetected))
         {
-            speedCorection = -10;
+            speedCorection = -(currentAiGate.maxSpeed / 10);
         }
         else if(turn > 0f && baseGateDifference > 5f && leftTurnCarDetected || leftGroundDetected)
         {
-            speedCorection = -10;
+            speedCorection = -(currentAiGate.maxSpeed / 10);
         }
         else
         {
@@ -135,18 +135,18 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
             {
                 if (distanceRight > distanceLeft)
                 {
-                    turn = -1f;
+                    angleCorection = -15f;
                 }
                 else
                 {
-                    turn = 1f;
+                    angleCorection = 15f;
                 }
             }
         }
-        else if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected) && turn <= 0f)
+        else if ((leftObstacleDetected || leftGroundDetected) && !(rightObstacleDetected && !rightGroundDetected) && turn <= 0f)
         {
             turn = 0.25f;
-            if (leftGroundDetected && !rightCarDetected)
+            if (leftGroundDetected)
             {
                 turn = 0.5f;
             }
@@ -155,10 +155,10 @@ public class AiControls : MonoBehaviour, ISideFreeDetector
                 avoiding = 0.25f;
             }
         }
-        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected) && turn >= 0f)
+        else if ((rightObstacleDetected || rightGroundDetected) && !(leftObstacleDetected && !leftGroundDetected) && turn >= 0f)
         {
             turn = -0.25f;
-            if (rightGroundDetected && !leftCarDetected)
+            if (rightGroundDetected)
             {
                 turn = -0.5f;
             }
