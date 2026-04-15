@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: F1 Red Body
+  m_Name: F1 Ferrari
   m_Shader: {fileID: 22, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -32,7 +32,7 @@ Material:
     m_Floats:
     - _Shininess: 0.25654158
     m_Colors:
-    - _Color: {r: 0.9558824, g: 0.19679932, b: 0.19679932, a: 1}
+    - _Color: {r: 0.8431373, g: 0.07450981, b: 0.18823531, a: 1}
     - _ReflectColor: {r: 0.3455882, g: 0.3455882, b: 0.3455882, a: 0.5019608}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
